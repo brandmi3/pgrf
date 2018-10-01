@@ -1,17 +1,26 @@
+package ui;
+
+import utils.Renderer;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PgrfFrame extends JFrame {
+public class PgrfFrame extends JFrame implements MouseMotionListener {
 
-    private static int FPS =1000/60;
+    private static int FPS = 1000 / 60;
 
     private BufferedImage img;
     static int width = 800;
     static int height = 600;
-    public JPanel panel;
+    private JPanel panel;
+    private utils.Renderer renderer;
+    private int coorX, coorY;
 
     public static void main(String... args) {
 
@@ -28,7 +37,16 @@ public class PgrfFrame extends JFrame {
         setTitle("Pocitacova grafika");
         panel = new JPanel();
         add(panel);
+
+        panel.addMouseMotionListener(this);
+//        panel.addMouseListener(new MouseAdapter() {
+//
+//        });
+
         setLocationRelativeTo(null);
+
+        renderer = new Renderer(img);
+
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -36,20 +54,31 @@ public class PgrfFrame extends JFrame {
             public void run() {
                 draw();
             }
-        },100,FPS);
+        }, 100, FPS);
 
 
     }
 
     private void draw() {
         img.getGraphics().fillRect(0, 0, img.getWidth(), img.getHeight());
-        for (int i = 0; i < 100; i++) {
-            img.setRGB(200 + i, 200, Color.RED.getRGB());
-        }
-
+//        for (int i = 0; i < 100; i++) {
+//            img.setRGB(200 + i, 200, Color.RED.getRGB());
+//        }
+        renderer.lineTrivial(300, 300, coorX, coorY);
 
         panel.getGraphics().drawImage(img, 0, 0, null);
         panel.paintComponents(getGraphics());
 
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        coorX=e.getX();
+        coorY=e.getY();
     }
 }
