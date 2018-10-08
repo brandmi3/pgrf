@@ -64,7 +64,8 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
 //        for (int i = 0; i < 100; i++) {
 //            img.setRGB(200 + i, 200, Color.RED.getRGB());
 //        }
-        renderer.lineTrivial(300, 300, coorX, coorY);
+//        renderer.lineTrivial(300, 300, coorX, coorY);
+        renderer.lineDDA(300, 300, coorX, coorY);
 
         panel.getGraphics().drawImage(img, 0, 0, null);
         panel.paintComponents(getGraphics());
