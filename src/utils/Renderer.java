@@ -2,6 +2,9 @@ package utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.Color;
+import java.awt.Robot;
+import java.awt.AWTException;
 
 public class Renderer {
     private BufferedImage img;
@@ -13,6 +16,10 @@ public class Renderer {
     }
 
     private void drawPixel(int x, int y) {
+        if (x < 0 || x >= 800) return;
+        ;
+        if (y < 0 || y >= 600) return;
+        ;
         img.setRGB(x, y, color);
     }
 
@@ -85,6 +92,7 @@ public class Renderer {
         float y = y1;
 
         for (int l = 1; l < Math.max(Math.abs(dx), Math.abs(dy)); l++) {
+
             drawPixel(Math.round(x), Math.round(y));
             x = x + g;
             y = y + h;
@@ -96,4 +104,42 @@ public class Renderer {
 
     }
 
+    public void drawPolygon(int x1, int y1, int x2, int y2, int count) {
+        double x0 = x2 - x1;
+        double y0 = y2 - y1;
+        double circleradius = 2 * Math.PI;
+        double step = circleradius / (double) count;
+        for (double i = 0; i < circleradius; i += step) {
+            double x = x0 * Math.cos(step) + y0 * Math.sin(step);
+            double y = y0 * Math.cos(step) - x0 * Math.sin(step);
+            lineDDA((int) x0 + x1, (int) y0 + y1, (int) x + x1, (int) y + y1);
+            x0 = x;
+            y0 = y;
+        }
+
+
+    }
+
+    public void seed(int x, int y) {
+
+       Robot rb = null;
+        try {
+            rb = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+
+        int c = rb.getPixelColor(x, y).getRGB();
+        System.out.println(c + " __ " +new Color(color).getRed()
+        + " X " + x + " y " + y);
+        /*if (c.getRed() <200) {
+            drawPixel(x, y);
+            seed(x + 1, y);
+            seed(x - 1, y);
+            seed(x, y + 1);
+            seed(x, y - 1);
+        }else {
+            System.out.println("KOLIZEEEE");
+        }*/
+    }
 }
