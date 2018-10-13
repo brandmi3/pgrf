@@ -100,16 +100,17 @@ public class Renderer {
 
     }
 
-    public void lineBresenham(int x1, int y1, int x2, int y2) {
 
-    }
 
-    public void drawPolygon(int x1, int y1, int x2, int y2, int count) {
+    public void drawPolygon(int x1, int y1, int x2, int y2, int a1, int a2) {
         double x0 = x2 - x1;
         double y0 = y2 - y1;
-        double circleradius = 2 * Math.PI;
-        double step = circleradius / (double) count;
-        for (double i = 0; i < circleradius; i += step) {
+        double circleRadius = 2 * Math.PI;
+        int count = (int)Math.sqrt(Math.pow(Math.abs(a1-x2),2)+Math.pow(Math.abs(a2-y2),2))/15; // /15 aby to bylo pomalejsi meneni
+        if(count<3)
+            count =3;
+        double step = circleRadius / (double) count;
+        for (double i = 0; i < circleRadius; i += step) {
             double x = x0 * Math.cos(step) + y0 * Math.sin(step);
             double y = y0 * Math.cos(step) - x0 * Math.sin(step);
             lineDDA((int) x0 + x1, (int) y0 + y1, (int) x + x1, (int) y + y1);
@@ -118,28 +119,14 @@ public class Renderer {
         }
 
 
+
     }
 
-    public void seed(int x, int y) {
+    public int getColor() {
+        return color;
+    }
 
-       Robot rb = null;
-        try {
-            rb = new Robot();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-
-        int c = rb.getPixelColor(x, y).getRGB();
-        System.out.println(c + " __ " +new Color(color).getRed()
-        + " X " + x + " y " + y);
-        /*if (c.getRed() <200) {
-            drawPixel(x, y);
-            seed(x + 1, y);
-            seed(x - 1, y);
-            seed(x, y + 1);
-            seed(x, y - 1);
-        }else {
-            System.out.println("KOLIZEEEE");
-        }*/
+    public void setColor(int color) {
+        this.color = color;
     }
 }
