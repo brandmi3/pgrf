@@ -35,6 +35,7 @@ public class PgrfFrameRegularPolygon extends PgrfFrame {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                System.out.println("KLIK");
                 super.mouseClicked(e);
                 if (phase == 0) {
                     angleX = 0;

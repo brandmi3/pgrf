@@ -1,6 +1,8 @@
 package ui;
 
 import com.sun.deploy.util.BlackList;
+import drawables.Drawable;
+import drawables.Line;
 import utils.Renderer;
 
 import javax.swing.*;
@@ -27,7 +29,7 @@ public class PgrfFrameClickPolygon extends PgrfFrame {
     private int count = 5;
     private List<Point> pointList = new ArrayList<>();
     private boolean firstClick;
-
+    private List<Drawable> drawables;
     public static void main(String[] args) {
         ;
         regularPolygon = new PgrfFrameClickPolygon();
@@ -39,6 +41,7 @@ public class PgrfFrameClickPolygon extends PgrfFrame {
 
         panel = PgrfFrame.getPanel();
         img = PgrfFrame.getImg();
+        drawables = new ArrayList<>();
         panel.addMouseMotionListener(this);
         panel.addMouseListener(new MouseAdapter() {
             @Override
