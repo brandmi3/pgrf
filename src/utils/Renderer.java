@@ -1,5 +1,7 @@
 package utils;
 
+import drawables.Point;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
@@ -101,23 +103,23 @@ public class Renderer {
     }
 
 
+    public void drawPolygon(Point center, Point radius, Point distance) {
 
-    public void drawPolygon(int x1, int y1, int x2, int y2, int a1, int a2) {
-        double x0 = x2 - x1;
-        double y0 = y2 - y1;
+
+        double x0 = radius.getX() - center.getX();
+        double y0 = radius.getY() - center.getY();
         double circleRadius = 2 * Math.PI;
-        int count = (int)Math.sqrt(Math.pow(Math.abs(a1-x2),2)+Math.pow(Math.abs(a2-y2),2))/15; // /15 aby to bylo pomalejsi meneni
-        if(count<3)
-            count =3;
+        int count = (int) Math.sqrt(Math.pow(Math.abs(distance.getX() - radius.getX()), 2) + Math.pow(Math.abs(distance.getY() - radius.getY()), 2)) / 15; // /15 aby to bylo pomalejsi meneni
+        if (count < 3)
+            count = 3;
         double step = circleRadius / (double) count;
         for (double i = 0; i < circleRadius; i += step) {
             double x = x0 * Math.cos(step) + y0 * Math.sin(step);
             double y = y0 * Math.cos(step) - x0 * Math.sin(step);
-            lineDDA((int) x0 + x1, (int) y0 + y1, (int) x + x1, (int) y + y1);
+            lineDDA((int) x0 + center.getX(), (int) y0 + center.getY(), (int) x + center.getX(), (int) y + center.getY());
             x0 = x;
             y0 = y;
         }
-
 
 
     }
