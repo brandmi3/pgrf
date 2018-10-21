@@ -48,4 +48,10 @@ public class RegularPolygon implements Drawable {
         this.distance = distance;
         return this;
     }
+
+    public void clearPoints() {
+        this.center=null;
+        this.radius=null;
+        this.distance=null;
+    }
 }

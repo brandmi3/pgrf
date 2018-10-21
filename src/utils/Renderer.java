@@ -14,7 +14,8 @@ public class Renderer {
 
     public Renderer(BufferedImage img) {
         this.img = img;
-        color = Color.RED.getRGB();
+        color = Color.BLACK.getRGB();
+
     }
 
     private void drawPixel(int x, int y) {
@@ -61,7 +62,12 @@ public class Renderer {
 
     }
 
-    public void lineDDA(int x1, int y1, int x2, int y2) {
+    public void lineDDA(Point p1, Point p2) {
+        int x1 = p1.getX();
+        int y1 = p1.getY();
+        int x2 = p2.getX();
+        int y2 = p2.getY();
+
         int dx, dy;
         float k, g, h; // G= prirustek X, H = prirustek Y;
         dx = x2 - x1;
@@ -71,23 +77,15 @@ public class Renderer {
             g = 1; //jdeme po x - prirustek po 1
             h = k;
             if (x2 < x1) { // prohozeni
-                int temp = x1;
                 x1 = x2;
-                x2 = temp;
-                temp = y1;
                 y1 = y2;
-                y2 = temp;
             }
         } else {
             g = 1 / k;
             h = 1;//jdeme po y - prirustek po 1
             if (y2 < y1) {// prohozeni
-                int temp = x1;
                 x1 = x2;
-                x2 = temp;
-                temp = y1;
                 y1 = y2;
-                y2 = temp;
             }
         }
         float x = x1;
@@ -101,6 +99,66 @@ public class Renderer {
         }
 
     }
+
+    public void drawLineBresenham(int x1, int y1, int x2, int y2) {
+        // delta of exact value and rounded value of the dependent variable
+        int d = 0;
+
+        int dx = Math.abs(x2 - x1);
+        int dy = Math.abs(y2 - y1);
+
+        int dx2 = 2 * dx; // slope scaling factors to
+        int dy2 = 2 * dy; // avoid floating point
+
+        int ix = x1 < x2 ? 1 : -1; // increment direction
+        int iy = y1 < y2 ? 1 : -1;
+
+        int x = x1;
+        int y = y1;
+
+        if (dx >= dy) {
+            while (true) {
+                drawPixel(x, y);
+                if (x == x2)
+                    break;
+                x += ix;
+                d += dy2;
+                if (d > dx) {
+                    y += iy;
+                    d -= dx2;
+                }
+                setColor(Color.GRAY.getRGB());
+                drawPixel(x, y - 1);
+                drawPixel(x, y + 1);
+                setColor(Color.LIGHT_GRAY.getRGB());
+                drawPixel(x, y - 2);
+                drawPixel(x, y + 2);
+                setColor(Color.BLACK.getRGB());
+            }
+        } else {
+            while (true) {
+                drawPixel(x, y);
+                if (y == y2)
+                    break;
+                y += iy;
+                d += dx2;
+                if (d > dy) {
+                    x += ix;
+                    d -= dy2;
+                }
+                setColor(Color.GRAY.getRGB());
+                drawPixel(x - 1, y);
+                drawPixel(x + 1, y);
+                setColor(Color.LIGHT_GRAY.getRGB());
+                drawPixel(x - 2, y);
+                drawPixel(x + 2, y);
+                setColor(Color.BLACK.getRGB());
+            }
+        }
+
+
+    }
+
 
 
     public void drawPolygon(Point center, Point radius, Point distance) {
@@ -116,7 +174,7 @@ public class Renderer {
         for (double i = 0; i < circleRadius; i += step) {
             double x = x0 * Math.cos(step) + y0 * Math.sin(step);
             double y = y0 * Math.cos(step) - x0 * Math.sin(step);
-            lineDDA((int) x0 + center.getX(), (int) y0 + center.getY(), (int) x + center.getX(), (int) y + center.getY());
+            lineDDA(new Point((int) x0 + center.getX(), (int) y0 + center.getY()), new Point((int) x + center.getX(), (int) y + center.getY()));
             x0 = x;
             y0 = y;
         }

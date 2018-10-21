@@ -31,6 +31,33 @@ public class NPolygon implements Drawable {
         points.clear();
     }
 
+    public double calculateArea() {
+        double value = 0;
+        if (getNumberOfPoints() >= 3) {
+            Point def = points.get(0);
+            Point bef = points.get(1);
+            for (int i = 2; i < points.size(); i++) {
+                System.out.println(i);
+                Point next = points.get(i);
+                value += calculateAreaOfTriangle(def, bef, next);
+                bef = next;
+            }
+        }
+
+        return value;
+    }
+
+    private double calculateAreaOfTriangle(Point p1, Point p2, Point p3) {
+//       p=(a+b+c)/2
+//       2/a odmoc.(p*(p-a)(p-b)(p-c))
+        double a = Math.sqrt(Math.pow(Math.abs(p1.getX() - p2.getX()), 2) + Math.pow(Math.abs(p1.getY() - p2.getY()), 2));
+        double b = Math.sqrt(Math.pow(Math.abs(p2.getX() - p3.getX()), 2) + Math.pow(Math.abs(p2.getY() - p3.getY()), 2));
+        double c = Math.sqrt(Math.pow(Math.abs(p3.getX() - p1.getX()), 2) + Math.pow(Math.abs(p3.getY() - p1.getY()), 2));
+        double p = (a + b + c) / 2;
+        double value = (Math.sqrt(p * (p - a) * (p - b) * (p - c)));
+        return Math.round(value*10)/10.0;
+    }
+
     @Override
     public void draw(Renderer renderer) {
         if (getNumberOfPoints() >= 2) {
@@ -41,11 +68,11 @@ public class NPolygon implements Drawable {
 
             for (int i = 0; i < size; i++) {
                 Point p = getPoint(i);
-                renderer.lineDDA(bef_x, bef_y, p.getX(), p.getY());//todo
+                renderer.lineDDA(new Point(bef_x, bef_y), new Point(p.getX(), p.getY()));
                 bef_x = p.getX();
                 bef_y = p.getY();
             }
-            renderer.lineDDA(bef_x, bef_y, getPoint(0).getX(), getPoint(0).getY());//todo
+            renderer.lineDDA(new Point(bef_x, bef_y), new Point(getPoint(0).getX(), getPoint(0).getY()));
         }
     }
 }

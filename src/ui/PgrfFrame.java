@@ -14,7 +14,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class PgrfFrame extends JFrame implements MouseMotionListener {
-    //todo U - usecka N- n-uhelnik
 
     private static PgrfFrame pgrfFrame;
     private static int FPS = 1000 / 60;
@@ -23,21 +22,25 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     static int width = 800;
     static int height = 600;
     private static JPanel panel;
-    private JLabel popis = new JLabel("");
+    private static JPanel descriptionPanel;
+    private JLabel description = new JLabel("");
+    private JLabel area = new JLabel("");
     private utils.Renderer renderer;
-    private int coorX, coorY, seedX, seedY;
+    private int coorX, coorY;
     private int clickX;
     private int clickY;
-    private int count = 5;
-    private List<drawables.Point> points = new ArrayList<>();
     private boolean firstClick;
+    private boolean secondClick;
     private DrawableType type = DrawableType.N_OBJECT;
     private NPolygon nPolygon = new NPolygon();
     private RegularPolygon regularPolygon = new RegularPolygon();
-    private Point center;
-    private Point radius;
+    private Line line = new Line();
+    private Point p1;
+    private Point p2;
     private Point distance;
     private int phase = 0;
+    private String defaultString = "L- přímka (antialiasing), N- nepravidelný, P- pravidelný || vybral jsi: ";
+    private String defaultAreaString = "Obsah (čáry se nesmí překrývat a nesmí býv v zákrytu od středu): ";
 
 
     public static void main(String[] args) {
@@ -52,9 +55,12 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         setTitle("Pocitacova grafika");
         setLocationRelativeTo(null);
         panel = new JPanel();
-        popis.setText("N- nepravidelný, R- pravidelný || vybral jsi: " + type.getPopis());
+        descriptionPanel = new JPanel(new BorderLayout());
+        description.setText(defaultString + type.getPopis());
         add(panel, BorderLayout.CENTER);
-        add(popis, BorderLayout.SOUTH);
+        descriptionPanel.add(description, BorderLayout.NORTH);
+        descriptionPanel.add(area, BorderLayout.SOUTH);
+        add(descriptionPanel, BorderLayout.SOUTH);
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         renderer = new Renderer(img);
@@ -77,21 +83,36 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                if (type == DrawableType.LINE) {
+                    if (secondClick) {
+                        firstClick = false;
+                        secondClick = false;
+                    }
+                    if (!firstClick) {
+                        p1 = new Point(e.getX(), e.getY());
+                        p2 = new Point(e.getX(), e.getY());
+                        firstClick = true;
+                    } else {
+                        secondClick = true;
+                        p2 = new Point(e.getX(), e.getY());
+                    }
+                    line.setP1(p1).setP2(p2);
+                }
                 if (type == DrawableType.POLYGON) {
                     if (phase == 0) {
                         distance = new Point(0, 0);
-                        radius = new Point(0, 0);
+                        p2 = new Point(0, 0);
                         phase++;
                     }
                     switch (phase) {
                         case 1:
-                            center = new Point(e.getX(), e.getY());
-                            radius = new Point(e.getX(), e.getY());
+                            p1 = new Point(e.getX(), e.getY());
+                            p2 = new Point(e.getX(), e.getY());
                             phase++;
                             firstClick = true;
                             break;
                         case 2:
-                            radius = new Point(e.getX(), e.getY());
+                            p2 = new Point(e.getX(), e.getY());
                             phase++;
                             break;
                         case 3:
@@ -101,7 +122,6 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
 
                     }
                 }
-//                System.out.println(center.getX()+ "_ "+ radius.getX()+ "_" + distance.getX());
             }
 
             @Override
@@ -116,14 +136,22 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                 super.keyReleased(e);
                 if (e.getKeyCode() == KeyEvent.VK_N) {
                     type = DrawableType.N_OBJECT;
+                    area.setText(defaultAreaString);
                     firstClick = false;
                     nPolygon.clear();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_P) {
                     type = DrawableType.POLYGON;
+                    area.setText("");
+                    firstClick = false;
+                    phase = 0;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_L) {
+                    type = DrawableType.LINE;
+                    area.setText("");
                     firstClick = false;
                 }
-                popis.setText("N- nepravidelný, P- pravidelný || vybral jsi: " + type.getPopis());
+                description.setText(defaultString + type.getPopis());
             }
         });
 
@@ -145,19 +173,30 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         if (type == DrawableType.N_OBJECT) {
             if (firstClick) {
                 renderer.setColor(Color.GREEN.getRGB());
-                renderer.lineDDA(clickX, clickY, coorX, coorY);
-                renderer.lineDDA(nPolygon.getPoint(0).getX(), nPolygon.getPoint(0).getY(), coorX, coorY);
+                renderer.lineDDA(new Point(clickX, clickY), new Point(coorX, coorY));
+                renderer.lineDDA(new Point(nPolygon.getPoint(0).getX(), nPolygon.getPoint(0).getY()), new Point(coorX, coorY));
                 renderer.setColor(Color.RED.getRGB());
             }
             //kresleni polygonu podle naklikanych pozic
             nPolygon.draw(renderer);
+            area.setText(defaultAreaString+ nPolygon.calculateArea()+" px2");
+           ;
         }
+        //Regular
         if (type == DrawableType.POLYGON) {
             if (firstClick) {
-                regularPolygon.setCenter(center);
-                regularPolygon.setRadius(radius);
+                regularPolygon.setCenter(p1);
+                regularPolygon.setRadius(p2);
                 regularPolygon.setDistance(distance);
                 regularPolygon.draw(renderer);
+            }
+        }
+        //Line
+        if (type == DrawableType.LINE) {
+            if (firstClick) {
+                if (!secondClick)
+                    p2 = new Point(coorX, coorY);
+                line.draw(renderer);
             }
         }
         panel.getGraphics().drawImage(img, 0, 0, null);
@@ -178,11 +217,11 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         if (type == DrawableType.POLYGON) {
             switch (phase) {
                 case 1:
-                    center = new Point(e.getX(), e.getY());
-                    radius = center;
+                    p1 = new Point(e.getX(), e.getY());
+                    p2 = p1;
                     break;
                 case 2:
-                    radius = new Point(e.getX(), e.getY());
+                    p2 = new Point(e.getX(), e.getY());
                     distance = new Point(e.getX(), e.getY());
                     break;
                 case 3:
