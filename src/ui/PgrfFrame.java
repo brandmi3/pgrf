@@ -39,7 +39,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     private Point p2;
     private Point distance;
     private int phase = 0;
-    private String defaultString = "L- přímka (antialiasing), N- nepravidelný, P- pravidelný || vybral jsi: ";
+    private String defaultString = "L- přímka, N- nepravidelný, P- pravidelný || vybral jsi: ";
     private String defaultAreaString = "Obsah (čáry se nesmí překrývat a nesmí býv v zákrytu od středu): ";
 
 
@@ -172,10 +172,8 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         //dynamické preslení (ukazuje kudy povede cara)
         if (type == DrawableType.N_OBJECT) {
             if (firstClick) {
-                renderer.setColor(Color.GREEN.getRGB());
                 renderer.lineDDA(new Point(clickX, clickY), new Point(coorX, coorY));
                 renderer.lineDDA(new Point(nPolygon.getPoint(0).getX(), nPolygon.getPoint(0).getY()), new Point(coorX, coorY));
-                renderer.setColor(Color.RED.getRGB());
             }
             //kresleni polygonu podle naklikanych pozic
             nPolygon.draw(renderer);

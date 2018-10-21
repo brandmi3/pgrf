@@ -26,41 +26,7 @@ public class Renderer {
         img.setRGB(x, y, color);
     }
 
-    public void lineTrivial(int x1, int y1, int x2, int y2) {
-        //y=kx+q;
-        int dx = x1 - x2;
-        int dy = y1 - y2;
 
-        if (Math.abs(dx) > Math.abs(dy)) {
-            if (x2 < x1) {
-                int c = x1;
-                x1 = x2;
-                x2 = c;
-                c = y1;
-                y1 = y2;
-            }
-            float k = (float) dy / (float) dx;
-            for (int x = x1; x < x2; x++) {
-                int y = y1 + (int) (k * (x - x1));
-                drawPixel(x, y);
-            }
-        } else {
-            if (y2 < y1) {
-                int c = y1;
-                y1 = y2;
-                y2 = c;
-                c = x1;
-                x1 = x2;
-            }
-            float k = (float) dx / (float) dy;
-            for (int y = y1; y < y2; y++) {
-                int x = x1 + (int) (k * (y - y1));
-                drawPixel(x, y);
-            }
-        }
-
-
-    }
 
     public void lineDDA(Point p1, Point p2) {
         int x1 = p1.getX();
@@ -96,66 +62,24 @@ public class Renderer {
             drawPixel(Math.round(x), Math.round(y));
             x = x + g;
             y = y + h;
-        }
-
-    }
-
-    public void drawLineBresenham(int x1, int y1, int x2, int y2) {
-        // delta of exact value and rounded value of the dependent variable
-        int d = 0;
-
-        int dx = Math.abs(x2 - x1);
-        int dy = Math.abs(y2 - y1);
-
-        int dx2 = 2 * dx; // slope scaling factors to
-        int dy2 = 2 * dy; // avoid floating point
-
-        int ix = x1 < x2 ? 1 : -1; // increment direction
-        int iy = y1 < y2 ? 1 : -1;
-
-        int x = x1;
-        int y = y1;
-
-        if (dx >= dy) {
-            while (true) {
-                drawPixel(x, y);
-                if (x == x2)
-                    break;
-                x += ix;
-                d += dy2;
-                if (d > dx) {
-                    y += iy;
-                    d -= dx2;
-                }
+            if (Math.abs(dx) > Math.abs(dy)) {
                 setColor(Color.GRAY.getRGB());
-                drawPixel(x, y - 1);
-                drawPixel(x, y + 1);
+                drawPixel(Math.round(x), Math.round(y) - 1);
+                drawPixel(Math.round(x), Math.round(y) + 1);
                 setColor(Color.LIGHT_GRAY.getRGB());
-                drawPixel(x, y - 2);
-                drawPixel(x, y + 2);
+                drawPixel(Math.round(x), Math.round(y) - 2);
+                drawPixel(Math.round(x), Math.round(y) + 2);
                 setColor(Color.BLACK.getRGB());
-            }
-        } else {
-            while (true) {
-                drawPixel(x, y);
-                if (y == y2)
-                    break;
-                y += iy;
-                d += dx2;
-                if (d > dy) {
-                    x += ix;
-                    d -= dy2;
-                }
+            } else {
                 setColor(Color.GRAY.getRGB());
-                drawPixel(x - 1, y);
-                drawPixel(x + 1, y);
+                drawPixel(Math.round(x) - 1, Math.round(y));
+                drawPixel(Math.round(x) + 1, Math.round(y));
                 setColor(Color.LIGHT_GRAY.getRGB());
-                drawPixel(x - 2, y);
-                drawPixel(x + 2, y);
+                drawPixel(Math.round(x) - 2, Math.round(y));
+                drawPixel(Math.round(x) + 2, Math.round(y));
                 setColor(Color.BLACK.getRGB());
             }
         }
-
 
     }
 

@@ -17,7 +17,7 @@ public class Line implements Drawable {
 
     @Override
     public void draw(Renderer renderer) {
-        renderer.drawLineBresenham(p1.getX(),p1.getY(),p2.getX(),p2.getY());
+        renderer.lineDDA(p1,p2);
     }
 
     public Point getP1() {

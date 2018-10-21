@@ -37,7 +37,6 @@ public class NPolygon implements Drawable {
             Point def = points.get(0);
             Point bef = points.get(1);
             for (int i = 2; i < points.size(); i++) {
-                System.out.println(i);
                 Point next = points.get(i);
                 value += calculateAreaOfTriangle(def, bef, next);
                 bef = next;
