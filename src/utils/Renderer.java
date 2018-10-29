@@ -18,7 +18,7 @@ public class Renderer {
 
     }
 
-    private void drawPixel(int x, int y) {
+    private void drawPixel(int x, int y, int color) {
         if (x < 0 || x >= 800) return;
         ;
         if (y < 0 || y >= 600) return;
@@ -26,6 +26,9 @@ public class Renderer {
         img.setRGB(x, y, color);
     }
 
+    private void drawPixel(int x, int y) {
+        drawPixel(x, y, color);
+    }
 
 
     public void lineDDA(Point p1, Point p2) {
@@ -64,25 +67,24 @@ public class Renderer {
             y = y + h;
             if (Math.abs(dx) > Math.abs(dy)) {
                 setColor(Color.GRAY.getRGB());
-                drawPixel(Math.round(x), Math.round(y) - 1);
-                drawPixel(Math.round(x), Math.round(y) + 1);
+//                drawPixel(Math.round(x), Math.round(y) - 1);
+//                drawPixel(Math.round(x), Math.round(y) + 1);
                 setColor(Color.LIGHT_GRAY.getRGB());
-                drawPixel(Math.round(x), Math.round(y) - 2);
-                drawPixel(Math.round(x), Math.round(y) + 2);
+//                drawPixel(Math.round(x), Math.round(y) - 2);
+//                drawPixel(Math.round(x), Math.round(y) + 2);
                 setColor(Color.BLACK.getRGB());
             } else {
                 setColor(Color.GRAY.getRGB());
-                drawPixel(Math.round(x) - 1, Math.round(y));
-                drawPixel(Math.round(x) + 1, Math.round(y));
+//                drawPixel(Math.round(x) - 1, Math.round(y));
+//                drawPixel(Math.round(x) + 1, Math.round(y));
                 setColor(Color.LIGHT_GRAY.getRGB());
-                drawPixel(Math.round(x) - 2, Math.round(y));
-                drawPixel(Math.round(x) + 2, Math.round(y));
+//                drawPixel(Math.round(x) - 2, Math.round(y));
+//                drawPixel(Math.round(x) + 2, Math.round(y));
                 setColor(Color.BLACK.getRGB());
             }
         }
 
     }
-
 
 
     public void drawPolygon(Point center, Point radius, Point distance) {
@@ -102,7 +104,17 @@ public class Renderer {
             x0 = x;
             y0 = y;
         }
+    }
 
+    public void seedFill(int x, int y, int oldColor, int newColor) {
+        if (oldColor == img.getRGB(x, y)) {
+            drawPixel(x, y, Color.BLUE.getRGB());
+            //todo
+            seedFill(x + 1, y, oldColor, newColor);
+            seedFill(x - 1, y, oldColor, newColor);
+            seedFill(x, y + 1, oldColor, newColor);
+            seedFill(x, y - 1, oldColor, newColor);
+        }
 
     }
 
