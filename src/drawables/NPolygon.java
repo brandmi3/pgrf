@@ -74,4 +74,9 @@ public class NPolygon implements Drawable {
             renderer.lineDDA(new Point(bef_x, bef_y), new Point(getPoint(0).getX(), getPoint(0).getY()));
         }
     }
+
+    @Override
+    public void modifyLastPoint(Point p) {
+
+    }
 }

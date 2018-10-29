@@ -4,8 +4,8 @@ import utils.Renderer;
 
 public class Line implements Drawable {
 
-   Point p1;
-   Point p2;
+    Point p1;
+    Point p2;
 
     public Line() {
     }
@@ -17,7 +17,12 @@ public class Line implements Drawable {
 
     @Override
     public void draw(Renderer renderer) {
-        renderer.lineDDA(p1,p2);
+        renderer.lineDDA(p1, p2);
+    }
+
+    @Override
+    public void modifyLastPoint(Point p) {
+        this.p2 = p;
     }
 
     public Point getP1() {

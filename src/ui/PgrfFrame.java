@@ -26,7 +26,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     private JLabel description = new JLabel("");
     private JLabel area = new JLabel("");
     private utils.Renderer renderer;
-    private int coorX, coorY;
+    private int coorX, coorY, seedX, seedY;
     private int clickX;
     private int clickY;
     private boolean firstClick;
@@ -34,14 +34,16 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     private DrawableType type = DrawableType.N_OBJECT;
     private NPolygon nPolygon = new NPolygon();
     private RegularPolygon regularPolygon = new RegularPolygon();
-    private Line line = new Line();
+    private List<Line> lines = new ArrayList<>();
+    private Line line;
     private Point p1;
     private Point p2;
     private Point distance;
     private int phase = 0;
     private String defaultString = "L- přímka, N- nepravidelný, P- pravidelný || vybral jsi: ";
     private String defaultAreaString = "Obsah (čáry se nesmí překrývat a nesmí býv v zákrytu od středu): ";
-
+    private boolean fillMode;
+//todo migrace do drawables
 
     public static void main(String[] args) {
         pgrfFrame = new PgrfFrame();
@@ -70,7 +72,8 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if (type == DrawableType.N_OBJECT) {
+                if (type == DrawableType.N_OBJECT && !fillMode) {
+                    System.out.println("");
                     clickX = e.getX();
                     clickY = e.getY();
                     nPolygon.addPoint(new drawables.Point(clickX, clickY));
@@ -78,25 +81,35 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                     coorY = clickY;
                     firstClick = true;
                 }
+
+                if (fillMode) {
+                    seedX = e.getX();
+                    seedY = e.getY();
+                }
             }
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (type == DrawableType.LINE) {
+
                     if (secondClick) {
                         firstClick = false;
                         secondClick = false;
                     }
                     if (!firstClick) {
-                        p1 = new Point(e.getX(), e.getY());
-                        p2 = new Point(e.getX(), e.getY());
+                        line = new Line();
+                        lines.add(line);
+                        line.setP1(new Point(e.getX(), e.getY()));
+                        line.setP2(new Point(e.getX(), e.getY()));
                         firstClick = true;
                     } else {
                         secondClick = true;
-                        p2 = new Point(e.getX(), e.getY());
+
+                        line = null;
+
                     }
-                    line.setP1(p1).setP2(p2);
+                    //line.setP1(p1).setP2(p2);
                 }
                 if (type == DrawableType.POLYGON) {
                     if (phase == 0) {
@@ -122,6 +135,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
 
                     }
                 }
+
             }
 
             @Override
@@ -151,6 +165,9 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                     area.setText("");
                     firstClick = false;
                 }
+                if (e.getKeyCode() == KeyEvent.VK_F) {
+                    fillMode = !fillMode;
+                }
                 description.setText(defaultString + type.getPopis());
             }
         });
@@ -166,8 +183,15 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
 
 
     public void draw() {
-        img.getGraphics().fillRect(0, 0, img.getWidth(), img.getHeight()); /// překreslení sceny bilou barvou
+        if (!fillMode) {
+            img.getGraphics().fillRect(0, 0, img.getWidth(), img.getHeight()); /// překreslení sceny bilou barvou
+        } else {
+            if (seedX != 0){
+                System.out.println(seedX +" " + seedY);
+                renderer.seedFill(coorX, coorY, img.getRGB(coorX, coorY), Color.BLUE.getRGB());
 
+            }
+        }
 
         //dynamické preslení (ukazuje kudy povede cara)
         if (type == DrawableType.N_OBJECT) {
@@ -177,8 +201,8 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             }
             //kresleni polygonu podle naklikanych pozic
             nPolygon.draw(renderer);
-            area.setText(defaultAreaString+ nPolygon.calculateArea()+" px2");
-           ;
+            area.setText(defaultAreaString + nPolygon.calculateArea() + " px2");
+            ;
         }
         //Regular
         if (type == DrawableType.POLYGON) {
@@ -190,13 +214,17 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             }
         }
         //Line
-        if (type == DrawableType.LINE) {
-            if (firstClick) {
-                if (!secondClick)
-                    p2 = new Point(coorX, coorY);
-                line.draw(renderer);
-            }
+        for (int i = 0; i < lines.size(); i++) {
+            if (lines.get(i) != null)
+                lines.get(i).draw(renderer);
         }
+//        if (type == DrawableType.LINE) {
+//            if (firstClick) {
+//                if (!secondClick)
+//                    p2 = new Point(coorX, coorY);
+//                line.draw(renderer);
+//            }
+//        }
         panel.getGraphics().drawImage(img, 0, 0, null);
         panel.paintComponents(getGraphics());
 
@@ -212,6 +240,16 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+
+
+        if (type == DrawableType.LINE) {
+            if (line != null) {
+
+                line.modifyLastPoint(new Point(e.getX(), e.getY()));
+                System.out.println(line.getP2().getX());
+            }
+
+        }
         if (type == DrawableType.POLYGON) {
             switch (phase) {
                 case 1:

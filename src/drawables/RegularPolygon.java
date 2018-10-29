@@ -49,6 +49,11 @@ public class RegularPolygon implements Drawable {
         return this;
     }
 
+    @Override
+    public void modifyLastPoint(Point p) {
+
+    }
+
     public void clearPoints() {
         this.center=null;
         this.radius=null;
