@@ -16,7 +16,7 @@ import java.util.TimerTask;
 public class PgrfFrame extends JFrame implements MouseMotionListener {
 
     private static PgrfFrame pgrfFrame;
-    private static int FPS = 1000 / 60;
+    private static int FPS = 1000 / 30;
 
     private BufferedImage img;
     static int width = 800;
@@ -32,9 +32,10 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     private boolean firstClick;
     private boolean secondClick;
     private DrawableType type = DrawableType.N_OBJECT;
+    private Drawable drawable;
+    private List<Drawable> drawables;
     private NPolygon nPolygon = new NPolygon();
     private RegularPolygon regularPolygon = new RegularPolygon();
-    private List<Line> lines = new ArrayList<>();
     private Line line;
     private Point p1;
     private Point p2;
@@ -57,6 +58,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         setTitle("Pocitacova grafika");
         setLocationRelativeTo(null);
         panel = new JPanel();
+        drawables = new ArrayList<>();
         descriptionPanel = new JPanel(new BorderLayout());
         description.setText(defaultString + type.getPopis());
         add(panel, BorderLayout.CENTER);
@@ -99,7 +101,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                     }
                     if (!firstClick) {
                         line = new Line();
-                        lines.add(line);
+                        drawables.add(line);
                         line.setP1(new Point(e.getX(), e.getY()));
                         line.setP2(new Point(e.getX(), e.getY()));
                         firstClick = true;
@@ -168,6 +170,9 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                 if (e.getKeyCode() == KeyEvent.VK_F) {
                     fillMode = !fillMode;
                 }
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    finishPolygon();
+                }
                 description.setText(defaultString + type.getPopis());
             }
         });
@@ -186,8 +191,8 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         if (!fillMode) {
             img.getGraphics().fillRect(0, 0, img.getWidth(), img.getHeight()); /// překreslení sceny bilou barvou
         } else {
-            if (seedX != 0){
-                System.out.println(seedX +" " + seedY);
+            if (seedX != 0) {
+                System.out.println(seedX + " " + seedY);
                 renderer.seedFill(coorX, coorY, img.getRGB(coorX, coorY), Color.BLUE.getRGB());
 
             }
@@ -196,8 +201,8 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         //dynamické preslení (ukazuje kudy povede cara)
         if (type == DrawableType.N_OBJECT) {
             if (firstClick) {
-                renderer.lineDDA(new Point(clickX, clickY), new Point(coorX, coorY));
-                renderer.lineDDA(new Point(nPolygon.getPoint(0).getX(), nPolygon.getPoint(0).getY()), new Point(coorX, coorY));
+                renderer.lineDDA(new Point(clickX, clickY), new Point(coorX, coorY),0);
+                renderer.lineDDA(new Point(nPolygon.getPoint(0).getX(), nPolygon.getPoint(0).getY()), new Point(coorX, coorY),0);
             }
             //kresleni polygonu podle naklikanych pozic
             nPolygon.draw(renderer);
@@ -214,10 +219,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             }
         }
         //Line
-        for (int i = 0; i < lines.size(); i++) {
-            if (lines.get(i) != null)
-                lines.get(i).draw(renderer);
-        }
+
 //        if (type == DrawableType.LINE) {
 //            if (firstClick) {
 //                if (!secondClick)
@@ -225,6 +227,22 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
 //                line.draw(renderer);
 //            }
 //        }
+        System.out.println(drawables.size());
+        for (int i = 0; i < drawables.size(); i++) {
+            if(drawables.get(i) instanceof NPolygon){
+                System.out.println("Npoly");
+            }
+
+            if(drawables.get(i) instanceof Line){
+                System.out.println("Line");
+                drawables.get(i).draw(renderer);
+            }
+
+            if(drawables.get(i) instanceof RegularPolygon){
+                System.out.println("Regular");
+            }
+
+        }
         panel.getGraphics().drawImage(img, 0, 0, null);
         panel.paintComponents(getGraphics());
 
@@ -246,7 +264,6 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             if (line != null) {
 
                 line.modifyLastPoint(new Point(e.getX(), e.getY()));
-                System.out.println(line.getP2().getX());
             }
 
         }
@@ -264,6 +281,16 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                     distance = new Point(e.getX(), e.getY());
                     break;
 
+            }
+        }
+    }
+
+    private void finishPolygon() {
+        if (drawable != null) {
+            if (drawable instanceof Polygon) {
+                ((NPolygon) drawable).setDone(true);
+                drawables.add(drawable);
+                drawable = null;
             }
         }
     }
