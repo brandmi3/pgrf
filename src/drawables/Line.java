@@ -1,5 +1,6 @@
 package drawables;
 
+import javafx.scene.paint.Color;
 import utils.Renderer;
 
 public class Line implements Drawable {
@@ -16,8 +17,14 @@ public class Line implements Drawable {
     }
 
     @Override
+    public int getColor() {
+
+        return java.awt.Color.GREEN.getRGB();
+    }
+
+    @Override
     public void draw(Renderer renderer) {
-        renderer.lineDDA(p1, p2);
+        renderer.lineDDA(p1, p2,getColor());
     }
 
     @Override

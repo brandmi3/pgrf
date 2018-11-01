@@ -2,6 +2,8 @@ package drawables;
 
 import utils.Renderer;
 
+import java.awt.*;
+
 public class RegularPolygon implements Drawable {
 
     private Point center;
@@ -19,7 +21,7 @@ public class RegularPolygon implements Drawable {
 
     @Override
     public void draw(Renderer renderer) {
-        renderer.drawPolygon(center, radius, distance);
+        renderer.drawPolygon(center, radius, distance,getColor());
     }
 
     public Point getCenter() {
@@ -47,6 +49,11 @@ public class RegularPolygon implements Drawable {
     public RegularPolygon setDistance(Point distance) {
         this.distance = distance;
         return this;
+    }
+
+    @Override
+    public int getColor() {
+        return Color.blue.getRGB();
     }
 
     @Override

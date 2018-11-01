@@ -1,5 +1,6 @@
 package utils;
 
+import drawables.Edge;
 import drawables.Point;
 
 import java.awt.*;
@@ -7,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Robot;
 import java.awt.AWTException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Renderer {
     private BufferedImage img;
@@ -31,7 +34,7 @@ public class Renderer {
     }
 
 
-    public void lineDDA(Point p1, Point p2) {
+    public void lineDDA(Point p1, Point p2, int color) {
         int x1 = p1.getX();
         int y1 = p1.getY();
         int x2 = p2.getX();
@@ -62,7 +65,7 @@ public class Renderer {
 
         for (int l = 1; l < Math.max(Math.abs(dx), Math.abs(dy)); l++) {
 
-            drawPixel(Math.round(x), Math.round(y));
+            drawPixel(Math.round(x), Math.round(y), color);
             x = x + g;
             y = y + h;
             if (Math.abs(dx) > Math.abs(dy)) {
@@ -87,7 +90,7 @@ public class Renderer {
     }
 
 
-    public void drawPolygon(Point center, Point radius, Point distance) {
+    public void drawPolygon(Point center, Point radius, Point distance,int color) {
 
 
         double x0 = radius.getX() - center.getX();
@@ -100,7 +103,7 @@ public class Renderer {
         for (double i = 0; i < circleRadius; i += step) {
             double x = x0 * Math.cos(step) + y0 * Math.sin(step);
             double y = y0 * Math.cos(step) - x0 * Math.sin(step);
-            lineDDA(new Point((int) x0 + center.getX(), (int) y0 + center.getY()), new Point((int) x + center.getX(), (int) y + center.getY()));
+            lineDDA(new Point((int) x0 + center.getX(), (int) y0 + center.getY()), new Point((int) x + center.getX(), (int) y + center.getY()), color);
             x0 = x;
             y0 = y;
         }
@@ -124,5 +127,33 @@ public class Renderer {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public void scanLine(List<Point> points, int borderColor, int fillColor) {
+        /*TODO
+ #   1 priprav ymax a xmax;
+
+    2 def. seznam usecek
+       -seradit dle (y1<y2)
+       -vypocitat koef. k a q
+       -oriznout posledni pixel
+
+    3 for cyklus od ymin do y max
+       -pro kazde y hledáme prusecik s useckami
+       -pro sudy pocet prseciku -> seradit dle x
+
+    4 obtazeni okraju
+    */
+        int yMax = 0;
+        int yMin = img.getHeight();
+        List<Edge> edges = new ArrayList();
+
+        for (int i = 0; i < points.size(); i++) {
+            //vytvareni usecek
+            //vylani urcitych metod
+            //hledání hraničních y
+            //přidání Edge do seznamu Edges
+        }
+
     }
 }

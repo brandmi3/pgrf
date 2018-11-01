@@ -24,7 +24,6 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     private static JPanel panel;
     private static JPanel descriptionPanel;
     private JLabel description = new JLabel("");
-    private JLabel area = new JLabel("");
     private utils.Renderer renderer;
     private int coorX, coorY, seedX, seedY;
     private int clickX;
@@ -34,17 +33,10 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     private DrawableType type = DrawableType.N_OBJECT;
     private Drawable drawable;
     private List<Drawable> drawables;
-    private NPolygon nPolygon = new NPolygon();
-    private RegularPolygon regularPolygon = new RegularPolygon();
-    private Line line;
-    private Point p1;
-    private Point p2;
-    private Point distance;
-    private int phase = 0;
+
     private String defaultString = "L- přímka, N- nepravidelný, P- pravidelný || vybral jsi: ";
-    private String defaultAreaString = "Obsah (čáry se nesmí překrývat a nesmí býv v zákrytu od středu): ";
     private boolean fillMode;
-//todo migrace do drawables
+
 
     public static void main(String[] args) {
         pgrfFrame = new PgrfFrame();
@@ -63,7 +55,6 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         description.setText(defaultString + type.getPopis());
         add(panel, BorderLayout.CENTER);
         descriptionPanel.add(description, BorderLayout.NORTH);
-        descriptionPanel.add(area, BorderLayout.SOUTH);
         add(descriptionPanel, BorderLayout.SOUTH);
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -75,71 +66,65 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 if (type == DrawableType.N_OBJECT && !fillMode) {
-                    System.out.println("");
-                    clickX = e.getX();
-                    clickY = e.getY();
-                    nPolygon.addPoint(new drawables.Point(clickX, clickY));
-                    coorX = clickX;
-                    coorY = clickY;
-                    firstClick = true;
+                    if (!firstClick) {
+                        drawable = new NPolygon();
+                        drawables.add(drawable);
+                    }
+                    if (!((NPolygon) drawable).isDone() && !fillMode) {
+                        clickX = e.getX();
+                        clickY = e.getY();
+                        ((NPolygon) drawable).addPoint(new drawables.Point(clickX, clickY));
+                        //  coorX = clickX; todo dynamicke
+                        //  coorY = clickY;
+                        firstClick = true;
+                    }
                 }
-
-                if (fillMode) {
-                    seedX = e.getX();
-                    seedY = e.getY();
-                }
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if (type == DrawableType.LINE) {
-
+                if (type == DrawableType.LINE && !fillMode) {
                     if (secondClick) {
                         firstClick = false;
                         secondClick = false;
                     }
                     if (!firstClick) {
-                        line = new Line();
-                        drawables.add(line);
-                        line.setP1(new Point(e.getX(), e.getY()));
-                        line.setP2(new Point(e.getX(), e.getY()));
+                        drawable = new Line();
+                        drawables.add(drawable);
+                        ((Line) drawable).setP1(new Point(e.getX(), e.getY()));
+                        ((Line) drawable).setP2(new Point(e.getX(), e.getY()));
                         firstClick = true;
                     } else {
                         secondClick = true;
-
-                        line = null;
-
+                        drawable = null;
                     }
                     //line.setP1(p1).setP2(p2);
                 }
                 if (type == DrawableType.POLYGON) {
-                    if (phase == 0) {
-                        distance = new Point(0, 0);
-                        p2 = new Point(0, 0);
-                        phase++;
-                    }
-                    switch (phase) {
-                        case 1:
-                            p1 = new Point(e.getX(), e.getY());
-                            p2 = new Point(e.getX(), e.getY());
-                            phase++;
-                            firstClick = true;
-                            break;
-                        case 2:
-                            p2 = new Point(e.getX(), e.getY());
-                            phase++;
-                            break;
-                        case 3:
-                            distance = new Point(e.getX(), e.getY());
-                            phase = 0;
-                            break;
-
+                    if (!firstClick) {
+                        drawable = new RegularPolygon();
+                        drawables.add(drawable);
+                        ((RegularPolygon) drawable).setCenter(new Point(e.getX(), e.getY()));
+                        ((RegularPolygon) drawable).setRadius(new Point(e.getX(), e.getY()));
+                        ((RegularPolygon) drawable).setDistance(new Point(e.getX(), e.getY()));
+                        firstClick = true;
+                    } else if (!secondClick) {
+                        ((RegularPolygon) drawable).setRadius(new Point(e.getX(), e.getY()));
+                        ((RegularPolygon) drawable).setDistance(new Point(e.getX(), e.getY()));
+                        secondClick = true;
+                    } else {
+                        ((RegularPolygon) drawable).setDistance(new Point(e.getX(), e.getY()));
+                        System.out.println(((RegularPolygon) drawable).getCenter().getX() + ":" + ((RegularPolygon) drawable).getCenter().getY() + "  " + ((RegularPolygon) drawable).getDistance().getX() + ":" + ((RegularPolygon) drawable).getDistance().getY());
+                        firstClick = false;
+                        secondClick = false;
+                        drawable = null;
                     }
                 }
-
+                if (fillMode) {
+                    seedX = e.getX();
+                    seedY = e.getY();
+                }
             }
-
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
             @Override
             public void mousePressed(MouseEvent e) {
                 coorX = e.getX();
@@ -150,22 +135,16 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
+                firstClick = false;
+                secondClick = false;
                 if (e.getKeyCode() == KeyEvent.VK_N) {
                     type = DrawableType.N_OBJECT;
-                    area.setText(defaultAreaString);
-                    firstClick = false;
-                    nPolygon.clear();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_P) {
                     type = DrawableType.POLYGON;
-                    area.setText("");
-                    firstClick = false;
-                    phase = 0;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_L) {
                     type = DrawableType.LINE;
-                    area.setText("");
-                    firstClick = false;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_F) {
                     fillMode = !fillMode;
@@ -176,7 +155,6 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                 description.setText(defaultString + type.getPopis());
             }
         });
-
         java.util.Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -186,111 +164,59 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         }, 100, FPS);
     }
 
-
     public void draw() {
         if (!fillMode) {
             img.getGraphics().fillRect(0, 0, img.getWidth(), img.getHeight()); /// překreslení sceny bilou barvou
         } else {
             if (seedX != 0) {
-                System.out.println(seedX + " " + seedY);
                 renderer.seedFill(coorX, coorY, img.getRGB(coorX, coorY), Color.BLUE.getRGB());
-
             }
         }
-
-        //dynamické preslení (ukazuje kudy povede cara)
-        if (type == DrawableType.N_OBJECT) {
-            if (firstClick) {
-                renderer.lineDDA(new Point(clickX, clickY), new Point(coorX, coorY),0);
-                renderer.lineDDA(new Point(nPolygon.getPoint(0).getX(), nPolygon.getPoint(0).getY()), new Point(coorX, coorY),0);
-            }
-            //kresleni polygonu podle naklikanych pozic
-            nPolygon.draw(renderer);
-            area.setText(defaultAreaString + nPolygon.calculateArea() + " px2");
-            ;
-        }
-        //Regular
-        if (type == DrawableType.POLYGON) {
-            if (firstClick) {
-                regularPolygon.setCenter(p1);
-                regularPolygon.setRadius(p2);
-                regularPolygon.setDistance(distance);
-                regularPolygon.draw(renderer);
-            }
-        }
-        //Line
-
-//        if (type == DrawableType.LINE) {
-//            if (firstClick) {
-//                if (!secondClick)
-//                    p2 = new Point(coorX, coorY);
-//                line.draw(renderer);
-//            }
-//        }
-        System.out.println(drawables.size());
         for (int i = 0; i < drawables.size(); i++) {
-            if(drawables.get(i) instanceof NPolygon){
-                System.out.println("Npoly");
-            }
-
-            if(drawables.get(i) instanceof Line){
-                System.out.println("Line");
-                drawables.get(i).draw(renderer);
-            }
-
-            if(drawables.get(i) instanceof RegularPolygon){
-                System.out.println("Regular");
-            }
-
+            Drawable drawable = drawables.get(i);
+            drawable.draw(renderer);
         }
         panel.getGraphics().drawImage(img, 0, 0, null);
         panel.paintComponents(getGraphics());
-
     }
 
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        coorX = e.getX();
-        coorY = e.getY();
+        if (type == DrawableType.N_OBJECT) {
+            if (drawable != null) {
+                drawable.modifyLastPoint(new Point(e.getX(), e.getY()));
+            }
+        }
     }
-
 
     @Override
     public void mouseMoved(MouseEvent e) {
 
-
         if (type == DrawableType.LINE) {
-            if (line != null) {
-
-                line.modifyLastPoint(new Point(e.getX(), e.getY()));
+            if (drawable != null) {
+                drawable.modifyLastPoint(new Point(e.getX(), e.getY()));
             }
-
         }
         if (type == DrawableType.POLYGON) {
-            switch (phase) {
-                case 1:
-                    p1 = new Point(e.getX(), e.getY());
-                    p2 = p1;
-                    break;
-                case 2:
-                    p2 = new Point(e.getX(), e.getY());
-                    distance = new Point(e.getX(), e.getY());
-                    break;
-                case 3:
-                    distance = new Point(e.getX(), e.getY());
-                    break;
-
+            if (drawable != null) {
+                if (firstClick && !secondClick) {
+                    ((RegularPolygon) drawable).setRadius(new Point(e.getX(), e.getY()));
+                    ((RegularPolygon) drawable).setDistance(new Point(e.getX(), e.getY()));
+                } else if(secondClick){
+                    ((RegularPolygon) drawable).setDistance(new Point(e.getX(), e.getY()));
+                }
             }
         }
     }
 
     private void finishPolygon() {
         if (drawable != null) {
-            if (drawable instanceof Polygon) {
+            if (drawable instanceof NPolygon) {
                 ((NPolygon) drawable).setDone(true);
-                drawables.add(drawable);
                 drawable = null;
+                firstClick = false;
+                secondClick = false;
             }
         }
     }
