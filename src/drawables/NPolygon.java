@@ -55,7 +55,7 @@ public class NPolygon implements Drawable {
 
     @Override
     public void modifyLastPoint(Point p) {
-
+        points.get(getNumberOfPoints()-1).setX(p.getX()).setY(p.getY());
     }
 
     @Override

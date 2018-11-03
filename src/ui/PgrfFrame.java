@@ -180,12 +180,12 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         panel.paintComponents(getGraphics());
     }
 
-
     @Override
     public void mouseDragged(MouseEvent e) {
         if (type == DrawableType.N_OBJECT) {
             if (drawable != null) {
                 drawable.modifyLastPoint(new Point(e.getX(), e.getY()));
+                System.out.println("...");
             }
         }
     }
