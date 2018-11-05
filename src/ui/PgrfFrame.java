@@ -148,6 +148,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                 }
                 if (e.getKeyCode() == KeyEvent.VK_F) {
                     fillMode = !fillMode;
+                    System.out.println(fillMode+" " + type);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     finishPolygon();
@@ -185,7 +186,6 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         if (type == DrawableType.N_OBJECT) {
             if (drawable != null) {
                 drawable.modifyLastPoint(new Point(e.getX(), e.getY()));
-                System.out.println("...");
             }
         }
     }

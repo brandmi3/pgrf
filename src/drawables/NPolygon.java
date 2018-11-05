@@ -14,7 +14,6 @@ public class NPolygon implements Drawable {
 
     public NPolygon() {
         points = new ArrayList<>();
-        System.out.println(points.size()+"__");
     }
 
     public void addPoint(Point p) {

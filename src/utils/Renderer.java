@@ -68,29 +68,13 @@ public class Renderer {
             drawPixel(Math.round(x), Math.round(y), color);
             x = x + g;
             y = y + h;
-            if (Math.abs(dx) > Math.abs(dy)) {
-                setColor(Color.GRAY.getRGB());
-//                drawPixel(Math.round(x), Math.round(y) - 1);
-//                drawPixel(Math.round(x), Math.round(y) + 1);
-                setColor(Color.LIGHT_GRAY.getRGB());
-//                drawPixel(Math.round(x), Math.round(y) - 2);
-//                drawPixel(Math.round(x), Math.round(y) + 2);
-                setColor(Color.BLACK.getRGB());
-            } else {
-                setColor(Color.GRAY.getRGB());
-//                drawPixel(Math.round(x) - 1, Math.round(y));
-//                drawPixel(Math.round(x) + 1, Math.round(y));
-                setColor(Color.LIGHT_GRAY.getRGB());
-//                drawPixel(Math.round(x) - 2, Math.round(y));
-//                drawPixel(Math.round(x) + 2, Math.round(y));
-                setColor(Color.BLACK.getRGB());
-            }
+
         }
 
     }
 
 
-    public void drawPolygon(Point center, Point radius, Point distance,int color) {
+    public void drawPolygon(Point center, Point radius, Point distance, int color) {
 
 
         double x0 = radius.getX() - center.getX();
@@ -110,13 +94,19 @@ public class Renderer {
     }
 
     public void seedFill(int x, int y, int oldColor, int newColor) {
+
         if (oldColor == img.getRGB(x, y)) {
             drawPixel(x, y, Color.BLUE.getRGB());
+
             //todo
-            seedFill(x + 1, y, oldColor, newColor);
-            seedFill(x - 1, y, oldColor, newColor);
-            seedFill(x, y + 1, oldColor, newColor);
-            seedFill(x, y - 1, oldColor, newColor);
+            try {
+                seedFill(x + 1, y, oldColor, newColor);
+                seedFill(x - 1, y, oldColor, newColor);
+                seedFill(x, y + 1, oldColor, newColor);
+                seedFill(x, y - 1, oldColor, newColor);
+            } catch (StackOverflowError e) {
+                System.out.println(":'(");
+            }
         }
 
     }
