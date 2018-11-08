@@ -19,7 +19,10 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     private static int FPS = 1000 / 30;
 
     private BufferedImage img;
-    static int width = 800;
+    private ControlPanel controlPanel;
+
+
+    static int width = 1000;
     static int height = 600;
     private static JPanel panel;
     private static JPanel descriptionPanel;
@@ -32,6 +35,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     private boolean secondClick;
     private DrawableType type = DrawableType.N_OBJECT;
     private Drawable drawable;
+
     private List<Drawable> drawables;
 
     private String defaultString = "L- přímka, N- nepravidelný, P- pravidelný || vybral jsi: ";
@@ -47,8 +51,10 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         setSize(width, height);
+        setResizable(false);
         setTitle("Pocitacova grafika");
         setLocationRelativeTo(null);
+
         panel = new JPanel();
         drawables = new ArrayList<>();
         descriptionPanel = new JPanel(new BorderLayout());
@@ -59,7 +65,19 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         renderer = new Renderer(img);
-
+//fixme
+        drawable = new NPolygon();
+        List<Point> points = new ArrayList<>();
+        points.add(new Point(100, 300));
+        points.add(new Point(200, 20));
+        points.add(new Point(450, 200));
+        points.add(new Point(300, 420));
+        ((NPolygon) drawable).setPoints(points);
+        firstClick = true;
+        drawables.add(drawable);
+        //fixme
+        controlPanel = new ControlPanel(drawables);
+        add(controlPanel,BorderLayout.EAST);
         panel.addMouseMotionListener(this);
         panel.addMouseListener(new MouseAdapter() {
             @Override
@@ -121,10 +139,12 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                     seedY = e.getY();
                 }
             }
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
             }
+
             @Override
             public void mousePressed(MouseEvent e) {
                 coorX = e.getX();
@@ -148,7 +168,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                 }
                 if (e.getKeyCode() == KeyEvent.VK_F) {
                     fillMode = !fillMode;
-                    System.out.println(fillMode+" " + type);
+                    System.out.println(fillMode + " " + type);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     finishPolygon();
@@ -170,7 +190,13 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             img.getGraphics().fillRect(0, 0, img.getWidth(), img.getHeight()); /// překreslení sceny bilou barvou
         } else {
             if (seedX != 0) {
-                renderer.seedFill(coorX, coorY, img.getRGB(coorX, coorY), Color.BLUE.getRGB());
+                List<Point> list = new ArrayList<>();
+                list.add(new Point(100,100));
+                list.add(new Point(300,100));
+                list.add(new Point(100,300));
+//                renderer.cut(((NPolygon) drawable).getPoints(),list);
+                renderer.scanLine(((NPolygon) drawable).getPoints(), img.getRGB(coorX, coorY), Color.BLUE.getRGB());
+//               renderer.seedFill(coorX, coorY, img.getRGB(coorX, coorY), Color.BLUE.getRGB());
             }
         }
         for (int i = 0; i < drawables.size(); i++) {
@@ -203,7 +229,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                 if (firstClick && !secondClick) {
                     ((RegularPolygon) drawable).setRadius(new Point(e.getX(), e.getY()));
                     ((RegularPolygon) drawable).setDistance(new Point(e.getX(), e.getY()));
-                } else if(secondClick){
+                } else if (secondClick) {
                     ((RegularPolygon) drawable).setDistance(new Point(e.getX(), e.getY()));
                 }
             }

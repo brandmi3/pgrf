@@ -25,4 +25,30 @@ public class Point {
         this.y = y;
         return this;
     }
+
+    private void scanline() {
+/*
+
+
+
+
+        for (int y = minY; y <= maxY; y++) {
+
+            List<Integer> intersections = new ArrayList<>();
+            // projít všechny hrany
+            // pokud hrana má průsečík pro dané Y
+            // tak vypočítáme průsečík a uložíme hodnotu do seznamu
+
+            Collections.sort(intersections);
+            // nebo volitelně implementovat vlastní algoritmus na seřazení
+
+            // vybarvení mezi průsečíky
+            // spojení vždy sudého s lichým
+            // 0. a 1.; 2. a 3.;...
+        }
+
+        // obtáhnutí hranice
+        //renderer.drawPolygon(points, edgeColor);
+    */
+    }
 }

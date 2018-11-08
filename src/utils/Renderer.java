@@ -1,6 +1,7 @@
 package utils;
 
 import drawables.Edge;
+import drawables.NPolygon;
 import drawables.Point;
 
 import java.awt.*;
@@ -9,6 +10,7 @@ import java.awt.Color;
 import java.awt.Robot;
 import java.awt.AWTException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Renderer {
@@ -33,6 +35,46 @@ public class Renderer {
         drawPixel(x, y, color);
     }
 
+    public void lineTrivial(int x1, int y1, int x2, int y2) {
+        // y = kx + q
+        int dx = x1 - x2;
+        int dy = y1 - y2;
+
+        if (Math.abs(dx) > Math.abs(dy)) {
+            // řídící osa x
+            // float k ... q
+            // drawPixel(x, y)
+            if (x1 > x2) {
+                int p = x1;
+                x1 = x2;
+                x2 = p;
+
+                y1 = y2;
+
+            }
+            float k = (float) dy / (float) dx;
+            for (int x = x1; x < x2; x++) {
+                int y = y1 + (int) (k * (x - x1));
+                drawPixel(x, y);
+            }
+        } else {
+            // řídící osa y
+            if (y2 < y1) {
+                int p = x1;
+                x1 = x2;
+
+                p = y1;
+                y1 = y2;
+                y2 = p;
+
+            }
+            float k = (float) dx / (float) dy;
+            for (int y = y1; y < y2; y++) {
+                int x = x1 + (int) (k * (y - y1));
+                drawPixel(x, y);
+            }
+        }
+    }
 
     public void lineDDA(Point p1, Point p2, int color) {
         int x1 = p1.getX();
@@ -96,16 +138,21 @@ public class Renderer {
     public void seedFill(int x, int y, int oldColor, int newColor) {
 
         if (oldColor == img.getRGB(x, y)) {
-            drawPixel(x, y, Color.BLUE.getRGB());
-
-            //todo
+            drawPixel(x, y, newColor);
             try {
-                seedFill(x + 1, y, oldColor, newColor);
-                seedFill(x - 1, y, oldColor, newColor);
-                seedFill(x, y + 1, oldColor, newColor);
-                seedFill(x, y - 1, oldColor, newColor);
-            } catch (StackOverflowError e) {
-                System.out.println(":'(");
+                Thread.sleep(0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (x < img.getWidth() - 1 && x > 1 && y < img.getHeight() - 1 && y > 1) {
+                if (img.getRGB(x + 1, y) != newColor)
+                    seedFill(x + 1, y, oldColor, newColor);
+                if (img.getRGB(x - 1, y) != newColor)
+                    seedFill(x - 1, y, oldColor, newColor);
+                if (img.getRGB(x, y + 1) != newColor)
+                    seedFill(x, y + 1, oldColor, newColor);
+                if (img.getRGB(x, y - 1) != newColor)
+                    seedFill(x, y - 1, oldColor, newColor);
             }
         }
 
@@ -120,30 +167,57 @@ public class Renderer {
     }
 
     public void scanLine(List<Point> points, int borderColor, int fillColor) {
-        /*TODO
- #   1 priprav ymax a xmax;
 
-    2 def. seznam usecek
-       -seradit dle (y1<y2)
-       -vypocitat koef. k a q
-       -oriznout posledni pixel
 
-    3 for cyklus od ymin do y max
-       -pro kazde y hledáme prusecik s useckami
-       -pro sudy pocet prseciku -> seradit dle x
-
-    4 obtazeni okraju
-    */
-        int yMax = 0;
-        int yMin = img.getHeight();
         List<Edge> edges = new ArrayList();
 
+        int prevX = points.get(points.size() - 1).getX();
+        int prevY = points.get(points.size() - 1).getY();
+
         for (int i = 0; i < points.size(); i++) {
-            //vytvareni usecek
-            //vylani urcitych metod
-            //hledání hraničních y
-            //přidání Edge do seznamu Edges
+            if (prevY != points.get(i).getY()) {
+                Edge e = new Edge(new Point(prevX, prevY), new Point(points.get(i).getX(), points.get(i).getY()));
+
+                edges.add(e);
+                prevX = points.get(i).getX();
+                prevY = points.get(i).getY();
+            }
+        }
+
+        int minY = points.get(0).getY();
+        int maxY = minY;
+
+        for (int i = 0; i < edges.size(); i++) {
+            minY = edges.get(i).yMin(minY);
+            maxY = edges.get(i).yMax(maxY);
+        }
+
+        for (int y = minY; y <= maxY; y++) {
+
+            List<Integer> intersections = new ArrayList<>();
+
+            for (int i = 0; i < edges.size(); i++) {
+                Edge e = edges.get(i);
+
+                if (e.isIntersection(y)) {
+                    int x = e.findX(y);
+                    intersections.add(x);
+                }
+            }
+            Collections.sort(intersections);
+            if (intersections.size() >= 2) {
+                for (int i = 0; i < intersections.size(); i++) {
+                }
+                for (int i = 0; i < intersections.size(); i += 2) {
+                    lineDDA(new Point(intersections.get(i) + 1, y), new Point(intersections.get(i + 1) + 2, y), Color.GRAY.getRGB());
+                }
+            }
+
         }
 
     }
+
+
+
+
 }
