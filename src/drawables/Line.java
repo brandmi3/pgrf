@@ -24,7 +24,7 @@ public class Line implements Drawable {
 
     @Override
     public void draw(Renderer renderer) {
-        renderer.lineDDA(p1, p2,getColor());
+        renderer.lineDDA(p1, p2, getColor());
     }
 
     @Override

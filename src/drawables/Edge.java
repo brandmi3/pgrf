@@ -10,11 +10,9 @@ public class Edge {
         this.y1 = p1.getY();
         this.x2 = p2.getX();
         this.y2 = p2.getY();
-        order();
         compute();
-      // cut();
+        // cut();
     }
-
 
 
     public boolean isHorizontal() {
@@ -31,7 +29,6 @@ public class Edge {
             p = y1;
             y1 = y2;
             y2 = p;
-
         }
     }
 
@@ -127,5 +124,39 @@ public class Edge {
         return this;
     }
 
+    public Boolean isInside(Point v) {
 
+        int x = v.getX();
+        int y = v.getY();
+        int aX = x1;
+        int aY = y1;
+        int bX = x2;
+        int bY = y2;
+
+
+        int side = ((bX - aX) * (y - aY) - (bY - aY) * (x - aX));
+        // 3 stavy : 0 na primce, <0 na jedne strane primky, >0 na druhe strane primky
+        return side < 0;
+
+    }
+
+    public Point intersection(Point v1, Point v2) {
+        // metoda pro vypocet pruseciku pomoci primky a dvou bodu
+        int x0, y0;
+        int x1 = this.x1;
+        int y1 = this.y1;
+        int x2 = this.x2;
+        int y2 = this.y2;
+        int x3 = v2.getX();
+        int y3 = v2.getY();
+        int x4 = v1.getX();
+        int y4 = v1.getY();
+
+
+        x0 = ((x1 * y2 - x2 * y1) * (x3 - x4) - (x3 * y4 - x4 * y3) * (x1 - x2))
+                / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
+        y0 = ((x1 * y2 - x2 * y1) * (y3 - y4) - (x3 * y4 - x4 * y3) * (y1 - y2))
+                / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
+        return new Point(x0, y0);
+    }
 }

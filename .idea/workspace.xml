@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0eaedc1-198a-42a3-bd6f-60fef855b09d" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ui/ControlPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/drawables/Clipper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/drawables/FillType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/Item.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/grafika1/drawables/Edge.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/drawables/Edge.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/grafika1/drawables/NPolygon.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/drawables/NPolygon.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/grafika1/drawables/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/drawables/Point.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame$2.class" afterDir="false" />
@@ -12,7 +15,10 @@
       <change beforePath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/grafika1/utils/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/utils/Renderer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/drawables/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawables/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/drawables/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawables/Line.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/drawables/NPolygon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawables/NPolygon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/drawables/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawables/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/ControlPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/ControlPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/PgrfFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PgrfFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Renderer.java" afterDir="false" />
     </list>
@@ -25,7 +31,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/pgrf$PgrfFrame.ic" NAME="PgrfFrame Coverage Results" MODIFIED="1541617349492" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/pgrf$PgrfFrame.ic" NAME="PgrfFrame Coverage Results" MODIFIED="1541844501328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>ui.*</FILTER>
     </SUITE>
   </component>
@@ -44,17 +50,16 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6772152">
+    <splitter split-orientation="horizontal" split-proportion="0.6162047">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="PgrfFrame.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="148">
-                  <caret line="47" selection-start-line="47" selection-end-line="47" />
+                <state relative-caret-position="3417">
+                  <caret line="222" column="40" selection-start-line="222" selection-start-column="40" selection-end-line="222" selection-end-column="40" />
                   <folding>
-                    <element signature="e#6758#6877#0" expanded="true" />
-                    <element signature="e#6876#6877#0" expanded="true" />
+                    <element signature="e#7038#7039#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -63,8 +68,8 @@
           <file leaf-file-name="ControlPanel.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/ui/ControlPanel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="458">
-                  <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+                <state relative-caret-position="4319">
+                  <caret line="270" column="44" selection-start-line="270" selection-start-column="44" selection-end-line="270" selection-end-column="44" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -75,27 +80,21 @@
           <file leaf-file-name="NPolygon.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/drawables/NPolygon.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+                <state relative-caret-position="1547">
+                  <caret line="121" column="31" selection-start-line="121" selection-start-column="31" selection-end-line="121" selection-end-column="31" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#242#243#0" expanded="true" />
-                    <element signature="e#284#285#0" expanded="true" />
-                    <element signature="e#1731#1732#0" expanded="true" />
-                    <element signature="e#1760#1761#0" expanded="true" />
+                    <element signature="e#2795#2796#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Line.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/drawables/Line.java">
+          <file leaf-file-name="Edge.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/drawables/Edge.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="408">
-                  <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
+                <state relative-caret-position="187">
+                  <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
                 </state>
               </provider>
             </entry>
@@ -103,10 +102,23 @@
           <file leaf-file-name="Renderer.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/utils/Renderer.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="510">
-                  <caret line="188" lean-forward="true" selection-start-line="188" selection-end-line="188" />
+                <state relative-caret-position="561">
+                  <caret line="198" column="9" selection-start-line="198" selection-start-column="9" selection-end-line="198" selection-end-column="9" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Clipper.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/drawables/Clipper.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="221">
+                  <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="38" />
+                  <folding>
+                    <element signature="e#99#100#0" expanded="true" />
+                    <element signature="e#133#134#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -116,16 +128,13 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Point.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/drawables/Point.java">
+          <file leaf-file-name="ControlPanel.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/ui/ControlPanel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="363">
-                  <caret line="31" selection-start-line="31" selection-end-line="31" />
+                <state relative-caret-position="366">
+                  <caret line="263" column="37" selection-start-line="263" selection-start-column="37" selection-end-line="263" selection-end-column="37" />
                   <folding>
-                    <element signature="e#158#159#0" expanded="true" />
-                    <element signature="e#182#183#0" expanded="true" />
-                    <element signature="e#286#287#0" expanded="true" />
-                    <element signature="e#310#311#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -146,42 +155,46 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>drawable</find>
-      <find>done</find>
-      <find>Done</find>
-      <find>ewfwefwefwef</find>
-      <find>firs</find>
-      <find>0__</find>
-      <find>area</find>
-      <find>system.</find>
-      <find>null</find>
-      <find>fillMode</find>
-      <find>panel</find>
-      <find>List&lt;Ed</find>
-      <find>q</find>
-      <find>lin</find>
-      <find>,</find>
-      <find>-</find>
-      <find>Sys</find>
-      <find>_</find>
-      <find>orde</find>
-      <find>__</find>
-      <find>edges.get</find>
-      <find>NE</find>
-      <find>.</find>
-      <find>.toS</find>
-      <find>min</find>
       <find>.x</find>
       <find>line</find>
       <find>lineD</find>
       <find>dra</find>
       <find>fillM</find>
+      <find>clipPoly</find>
+      <find>clipper</find>
+      <find>Clipp</find>
+      <find>Polygon</find>
+      <find>new Cli</find>
+      <find>clippedPol</find>
+      <find>clipped</find>
+      <find>clipp</find>
+      <find>drawable</find>
+      <find>orde</find>
+      <find>order</find>
+      <find>drawables.ad</find>
+      <find>seed</find>
+      <find>img</find>
+      <find>finishPolygon</find>
+      <find>color</find>
+      <find>ohr</find>
+      <find>addPoint</find>
+      <find>Sys</find>
+      <find>F</find>
+      <find>System.</find>
+      <find>btnDelete</find>
+      <find>drawables.add</find>
+      <find>item</find>
+      <find>BL</find>
     </findStrings>
     <replaceStrings>
       <replace>PgrfFrameClickPolygon</replace>
       <replace>p2</replace>
       <replace>description</replace>
       <replace>.getX()</replace>
+      <replace>fullPoly</replace>
+      <replace>clippPoly</replace>
+      <replace>borderColor</replace>
+      <replace>NPolygon</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -200,21 +213,26 @@
         <option value="$PROJECT_DIR$/src/ui/PgrfFrameClickPolygon.java" />
         <option value="$PROJECT_DIR$/src/drawables/ReqularPolygon.java" />
         <option value="$PROJECT_DIR$/src/ui/PgrfFrameRegularPolygon.java" />
-        <option value="$PROJECT_DIR$/src/drawables/DrawableType.java" />
         <option value="$PROJECT_DIR$/src/drawables/Drawable.java" />
-        <option value="$PROJECT_DIR$/src/drawables/Line.java" />
         <option value="$PROJECT_DIR$/src/drawables/RegularPolygon.java" />
-        <option value="$PROJECT_DIR$/src/drawables/NPolygon.java" />
         <option value="$PROJECT_DIR$/src/solids/Solid.java" />
         <option value="$PROJECT_DIR$/src/utils/Transformer.java" />
         <option value="$PROJECT_DIR$/src/ui/PgrfWiredFrame.java" />
         <option value="$PROJECT_DIR$/src/solids/SolidData.java" />
         <option value="$PROJECT_DIR$/src/solids/Cube.java" />
+        <option value="$PROJECT_DIR$/src/drawables/xxx.java" />
         <option value="$PROJECT_DIR$/src/drawables/Point.java" />
+        <option value="$PROJECT_DIR$/src/drawables/Line.java" />
         <option value="$PROJECT_DIR$/src/drawables/Edge.java" />
-        <option value="$PROJECT_DIR$/src/utils/Renderer.java" />
+        <option value="$PROJECT_DIR$/src/ui/ColorChooser.java" />
+        <option value="$PROJECT_DIR$/src/utils/Item.java" />
+        <option value="$PROJECT_DIR$/src/drawables/FillType.java" />
+        <option value="$PROJECT_DIR$/src/drawables/DrawableType.java" />
+        <option value="$PROJECT_DIR$/src/drawables/NPolygon.java" />
+        <option value="$PROJECT_DIR$/src/drawables/Clipper.java" />
         <option value="$PROJECT_DIR$/src/ui/PgrfFrame.java" />
         <option value="$PROJECT_DIR$/src/ui/ControlPanel.java" />
+        <option value="$PROJECT_DIR$/src/utils/Renderer.java" />
       </list>
     </option>
   </component>
@@ -244,6 +262,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -284,9 +305,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -295,13 +313,16 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ui" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="utils" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -473,7 +494,10 @@
       <workItem from="1541589349869" duration="15740000" />
       <workItem from="1541657806046" duration="133000" />
       <workItem from="1541658215610" duration="442000" />
-      <workItem from="1541694867317" duration="16011000" />
+      <workItem from="1541694867317" duration="16512000" />
+      <workItem from="1541779744915" duration="66116000" />
+      <workItem from="1541884748914" duration="339000" />
+      <workItem from="1541885335163" duration="504000" />
     </task>
     <task id="LOCAL-00001" summary="DDA - working">
       <created>1538991593300</created>
@@ -552,11 +576,18 @@
       <option name="project" value="LOCAL" />
       <updated>1540810381128</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="funkci scan line - zacatek panelu">
+      <created>1541713268895</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1541713268895</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160729000" />
+    <option name="totallyTimeSpent" value="228189000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -569,66 +600,65 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32897604" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32897604" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.11940298" side_tool="true" weight="0.57298476" />
       <window_info anchor="right" id="Maven Projects" order="3" weight="0.32995737" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.93246186" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24509804" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840087" weight="0.3453159" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32897604" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8714597" visible="true" weight="0.15778251" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8714597" weight="0.14818764" />
       <window_info anchor="right" id="Database" order="3" weight="0.32995737" />
       <window_info id="Structure" order="1" sideWeight="0.1285403" side_tool="true" weight="0.14978679" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4335512" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.880597" weight="0.32135075" />
       <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.32995737" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32897604" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32897604" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32897604" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15031983" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32897604" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.93246186" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Database" order="6" weight="0.32995737" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32995737" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.22657952" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.93246186" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info id="Capture Tool" order="5" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32897604" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="right" id="Maven Projects" order="8" weight="0.32995737" />
       <window_info id="Favorites" order="6" side_tool="true" />
     </layout-to-restore>
@@ -650,22 +680,29 @@
     <MESSAGE value="finalni projekt 21.10 &#10;-vypocty&#10;+ dodelavky" />
     <MESSAGE value="finalni projekt 21.10 &#10;pred zmenami" />
     <MESSAGE value="zacatek projektu 2&#10;*todo vse do drawables" />
-    <option name="LAST_COMMIT_MESSAGE" value="zacatek projektu 2&#10;*todo vse do drawables" />
+    <MESSAGE value="funkci scan line - zacatek panelu" />
+    <option name="LAST_COMMIT_MESSAGE" value="funkci scan line - zacatek panelu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="60" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ui/PgrfFrame.java</url>
+          <line>102</line>
+          <properties />
+          <option name="timeStamp" value="159" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="160" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="drawable" language="JAVA" />
-        <watch expression="intersections.get(0).value" />
-        <watch expression="((Edge)this).x1" custom="drawables.Edge" />
-      </configuration>
-    </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>panel</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>drawable</expression-string>
         <language-id>JAVA</language-id>
@@ -674,76 +711,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="50" column="46" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/Renderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2176">
-          <caret line="132" column="28" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="62" column="11" selection-start-line="62" selection-start-column="11" selection-end-line="62" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/Renderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1768">
-          <caret line="105" column="52" lean-forward="true" selection-start-line="105" selection-start-column="52" selection-end-line="105" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/Renderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="17" lean-forward="true" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/Renderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="17" lean-forward="true" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrameLine.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/awt/Point.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -770,29 +737,10 @@
     <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrameClickPolygon.java" />
     <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrameRegularPolygon.java" />
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa28556.34989/Renderer.java" />
-    <entry file="file://$PROJECT_DIR$/src/drawables/Drawable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#216#217#0" expanded="true" />
-            <element signature="e#259#260#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/drawables/RegularPolygon.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="23" column="64" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/drawables/DrawableType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -920,19 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/drawables/Point.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="e#158#159#0" expanded="true" />
-            <element signature="e#182#183#0" expanded="true" />
-            <element signature="e#286#287#0" expanded="true" />
-            <element signature="e#310#311#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Users/miros/Downloads/PGRF2_Zdenek_Horak/PGRF2_Zdeněk_Horák/src_UTF8/PGRF/src/U2/Tab.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -945,13 +880,7 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/jre/lib/ext/jfxrt.jar!/javafx/geometry/Point2D.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#4483#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/javax/swing/JPanel.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -960,78 +889,140 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/Renderer.java">
+    <entry file="file://$PROJECT_DIR$/src/drawables/xxx.java" />
+    <entry file="file://$PROJECT_DIR$/src/drawables/Point.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="188" lean-forward="true" selection-start-line="188" selection-end-line="188" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="187">
+          <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/drawables/Line.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/Microsoft.SkypeApp_kzf8qxf38zg5c!App/All/PRGF1/src/drawables/Clipper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="61" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/Microsoft.SkypeApp_kzf8qxf38zg5c!App/All/PRGF1/src/drawables/Polygon.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/Microsoft.SkypeApp_kzf8qxf38zg5c!App/All/PRGF1/src/ui/PrgfFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15">
+          <caret line="58" column="34" lean-forward="true" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/Microsoft.SkypeApp_kzf8qxf38zg5c!App/All/PRGF1/src/drawables/Edge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/Microsoft.SkypeApp_kzf8qxf38zg5c!App/All/PRGF1/src/utils/Renderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-661">
+          <caret line="184" column="58" selection-start-line="184" selection-start-column="53" selection-end-line="184" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/drawables/Drawable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/drawables/FillType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/drawables/DrawableType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="17" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/Item.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/ColorChooser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/drawables/NPolygon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+        <state relative-caret-position="1547">
+          <caret line="121" column="31" selection-start-line="121" selection-start-column="31" selection-end-line="121" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#242#243#0" expanded="true" />
-            <element signature="e#284#285#0" expanded="true" />
-            <element signature="e#1731#1732#0" expanded="true" />
-            <element signature="e#1760#1761#0" expanded="true" />
+            <element signature="e#2795#2796#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/drawables/Edge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+        <state relative-caret-position="187">
+          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3417">
+          <caret line="222" column="40" selection-start-line="222" selection-start-column="40" selection-end-line="222" selection-end-column="40" />
           <folding>
-            <element signature="e#900#901#0" expanded="true" />
-            <element signature="e#942#943#0" expanded="true" />
-            <element signature="e#1298#1299#0" expanded="true" />
-            <element signature="e#1323#1324#0" expanded="true" />
-            <element signature="e#1431#1432#0" expanded="true" />
-            <element signature="e#1456#1457#0" expanded="true" />
-            <element signature="e#1564#1565#0" expanded="true" />
-            <element signature="e#1589#1590#0" expanded="true" />
-            <element signature="e#1697#1698#0" expanded="true" />
-            <element signature="e#1722#1723#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
-            <element signature="e#1855#1856#0" expanded="true" />
-            <element signature="e#1962#1963#0" expanded="true" />
-            <element signature="e#1986#1987#0" expanded="true" />
+            <element signature="e#7038#7039#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/drawables/Line.java">
+    <entry file="file://$PROJECT_DIR$/src/drawables/Clipper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+        <state relative-caret-position="221">
+          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="38" />
+          <folding>
+            <element signature="e#99#100#0" expanded="true" />
+            <element signature="e#133#134#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/Renderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="198" column="9" selection-start-line="198" selection-start-column="9" selection-end-line="198" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="47" selection-start-line="47" selection-end-line="47" />
-          <folding>
-            <element signature="e#6758#6877#0" expanded="true" />
-            <element signature="e#6876#6877#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/ControlPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+        <state relative-caret-position="4319">
+          <caret line="270" column="44" selection-start-line="270" selection-start-column="44" selection-end-line="270" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
