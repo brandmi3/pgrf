@@ -51,6 +51,11 @@ public class Edge {
     }
 
     public int findX(int y) {
+        if (isVertical()) {
+            k = (float) (x2 - x1) / (float) (y2 - y1);
+            q = x1-k*y1;
+            return (int)(k*y + q);
+        }
         return (int) ((y - q) / k);
     }
 
@@ -58,6 +63,10 @@ public class Edge {
         order();
 
         return (y > y1 && y <= y2);
+    }
+
+    public boolean isVertical() {
+        return x1 == x2;
     }
 
     public int yMin(int yMin) {

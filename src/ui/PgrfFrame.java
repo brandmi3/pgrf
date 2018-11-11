@@ -52,7 +52,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         setVisible(true);
         setSize(width, height);
         //setResizable(false);
-        setTitle("Pocitacova grafika");
+        setTitle("Pgrf1 -uloha c.2 v1.0a");
         setLocationRelativeTo(null);
 
         panel = new JPanel();
@@ -122,13 +122,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
-                System.out.println("2");
-                if (e.getKeyCode() == KeyEvent.VK_F) {
-                    System.out.println("F");
-                    fillMode = !fillMode;
-                }
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    System.out.println("enter");
                     finishPolygon();
                 }
             }
@@ -149,7 +143,6 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
             Clipper clipper = new Clipper(polCutter);
             for (int i = 1; i < drawables.size(); i++) {
                 if (((NPolygon) drawables.get(i)).getNumberOfPoints() > 2) {
-                    System.out.println("POCET: " + ((NPolygon) drawables.get(i)).getNumberOfPoints());
                     NPolygon clippedPol = new NPolygon(clipper.clipPoly((NPolygon) drawables.get(i)));
                     if (clippedPol.getPoints().size() > 2)
                         renderer.scanLine(clippedPol.getPoints(), Color.BLACK.getRGB(), Color.BLACK.getRGB());

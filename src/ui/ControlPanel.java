@@ -45,6 +45,9 @@ public class ControlPanel extends JPanel {
     private ColorChooser colorChooser;
     private JPanel seedPanel;
 
+    private JPanel descriptionPanel;
+    private JLabel description;
+
     private List<Drawable> drawables;
     private NPolygon nPolygon;
 
@@ -83,6 +86,10 @@ public class ControlPanel extends JPanel {
         /* ***center panel *** */
         centerPanel = new JPanel(new BorderLayout());
 
+        TitledBorder title2;
+        title2 = BorderFactory.createTitledBorder("Výběr a editace");
+        title2.setTitleJustification(TitledBorder.LEFT);
+        centerPanel.setBorder(title2);
 
         itemSelect = new JComboBox();
         itemSelect.setSize(50, 30);
@@ -94,7 +101,7 @@ public class ControlPanel extends JPanel {
         areaWithPoints.setSize(100, 150);
         centerPanel.add(new JScrollPane(areaWithPoints), BorderLayout.CENTER);
 
-
+        /* *** manage buttons *** */
         managePanel = new JPanel(new FlowLayout());
         btnSave = new JButton("Uložit");
         managePanel.add(btnSave);
@@ -104,10 +111,26 @@ public class ControlPanel extends JPanel {
 
         controlPanel.add(centerPanel, BorderLayout.CENTER);
 
-        /* *** color buttons *** */
+        /* *** description*** */
+        descriptionPanel = new JPanel(new BorderLayout());
 
-        // controlPanel.add(panelColors, BorderLayout.SOUTH);
+        TitledBorder title3;
+        title3 = BorderFactory.createTitledBorder("Info");
+        title3.setTitleJustification(TitledBorder.LEFT);
+        descriptionPanel.setBorder(title3);
 
+        description = new JLabel();
+        description.setText("<html>" +
+                "<p>Výchozí polygon je ořezový<br>" +
+                " -jeho změna může <br>" +
+                " způsobit nefunkčnost ořezu<br><br>" +
+                "Klik - přidání bodu<br>" +
+                "Drag - úprava posledního bodu<br>" +
+                "Enter - uložení polygonu</p>"+
+                "</html>");
+        descriptionPanel.add(description, BorderLayout.CENTER);
+
+        controlPanel.add(descriptionPanel, BorderLayout.SOUTH);
         /* *** listeners *** */
 
         itemSelect.addItemListener(new ItemListener() {
@@ -153,6 +176,7 @@ public class ControlPanel extends JPanel {
                         btnFill.setForeground(getContrastColor(new Color(color)));
 
                         pgrfFrame.setFillMode(true);
+                        allowFill.setSelected(true);
                         nPolygon.setFilled(true);
                         nPolygon.fillScanLine(pgrfFrame.getRenderer());
 
@@ -202,7 +226,7 @@ public class ControlPanel extends JPanel {
         btnDelete.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (drawables.size()>1&&nPolygon != drawables.get(0)) {
+                if (drawables.size() > 1 && nPolygon != drawables.get(0)) {
                     drawables.remove(nPolygon);
                     nPolygon = null;
                     initDrawables();

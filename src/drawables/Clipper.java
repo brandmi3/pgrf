@@ -15,20 +15,24 @@ public class Clipper {
 
             clipPoly = new NPolygon(out);
             out.getPoints().clear();
-            Point v1 = new Point(clipPoly.getPoints().get(clipPoly.getNumberOfPoints() - 1));
-            for (int j = 0; j < clipPoly.getNumberOfPoints(); j++) {
-                Point v2 = new Point(clipPoly.getPoints().get(j));
+            if (clipPoly.getPoints().size() > 0) {
+                Point v1 = new Point(clipPoly.getPoints().get(clipPoly.getNumberOfPoints() - 1));
+                for (int j = 0; j < clipPoly.getNumberOfPoints(); j++) {
+                    Point v2 = new Point(clipPoly.getPoints().get(j));
 
-                if (cutter.isInside(v2)) {
-                    if (!cutter.isInside(v1))
-                        out.getPoints().add(cutter.intersection(v1, v2));
-                    out.getPoints().add(v2);
-                } else {
-                    if (cutter.isInside(v1)) {
-                        out.getPoints().add(cutter.intersection(v1, v2));
+                    if (cutter.isInside(v2)) {
+                        if (!cutter.isInside(v1))
+                            out.getPoints().add(cutter.intersection(v1, v2));
+                        out.getPoints().add(v2);
+                    } else {
+                        if (cutter.isInside(v1)) {
+                            out.getPoints().add(cutter.intersection(v1, v2));
+                        }
                     }
+                    v1 = v2;
                 }
-                v1 = v2;
+            }else{
+                System.out.println("chyba");
             }
         }
         return out;

@@ -2,25 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0eaedc1-198a-42a3-bd6f-60fef855b09d" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/drawables/Clipper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/drawables/FillType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/Item.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/grafika1/drawables/Edge.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/drawables/Edge.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/grafika1/drawables/NPolygon.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/drawables/NPolygon.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/grafika1/drawables/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/drawables/Point.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/ui/PgrfFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/grafika1/utils/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/grafika1/utils/Renderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/drawables/Clipper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawables/Clipper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/drawables/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawables/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/drawables/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawables/Line.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/drawables/NPolygon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawables/NPolygon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/drawables/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawables/Point.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/ControlPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/ControlPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/PgrfFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/PgrfFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Renderer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,15 +37,20 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6162047">
+    <splitter split-orientation="horizontal" split-proportion="0.48187634">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="PgrfFrame.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3417">
-                  <caret line="222" column="40" selection-start-line="222" selection-start-column="40" selection-end-line="222" selection-end-column="40" />
+                <state relative-caret-position="1632">
+                  <caret line="124" column="58" selection-start-line="124" selection-start-column="58" selection-end-line="124" selection-end-column="58" />
                   <folding>
+                    <element signature="e#3807#4323#0" expanded="true" />
+                    <element signature="e#4322#4323#0" expanded="true" />
+                    <element signature="e#4395#4514#0" expanded="true" />
+                    <element signature="e#4513#4514#0" expanded="true" />
+                    <element signature="e#7000#7001#0" expanded="true" />
                     <element signature="e#7038#7039#0" expanded="true" />
                   </folding>
                 </state>
@@ -68,8 +60,8 @@
           <file leaf-file-name="ControlPanel.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/ui/ControlPanel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="4319">
-                  <caret line="270" column="44" selection-start-line="270" selection-start-column="44" selection-end-line="270" selection-end-column="44" />
+                <state relative-caret-position="398">
+                  <caret line="126" column="17" selection-start-line="126" selection-start-column="17" selection-end-line="126" selection-end-column="17" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -93,8 +85,26 @@
           <file leaf-file-name="Edge.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/drawables/Edge.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
-                  <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+                <state relative-caret-position="259">
+                  <caret line="58" selection-start-line="58" selection-end-line="58" />
+                  <folding>
+                    <element signature="e#315#316#0" expanded="true" />
+                    <element signature="e#344#345#0" expanded="true" />
+                    <element signature="e#1041#1042#0" expanded="true" />
+                    <element signature="e#1072#1073#0" expanded="true" />
+                    <element signature="e#1369#1370#0" expanded="true" />
+                    <element signature="e#1394#1395#0" expanded="true" />
+                    <element signature="e#1502#1503#0" expanded="true" />
+                    <element signature="e#1527#1528#0" expanded="true" />
+                    <element signature="e#1635#1636#0" expanded="true" />
+                    <element signature="e#1660#1661#0" expanded="true" />
+                    <element signature="e#1768#1769#0" expanded="true" />
+                    <element signature="e#1793#1794#0" expanded="true" />
+                    <element signature="e#1902#1903#0" expanded="true" />
+                    <element signature="e#1926#1927#0" expanded="true" />
+                    <element signature="e#2033#2034#0" expanded="true" />
+                    <element signature="e#2057#2058#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -102,8 +112,8 @@
           <file leaf-file-name="Renderer.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/utils/Renderer.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="561">
-                  <caret line="198" column="9" selection-start-line="198" selection-start-column="9" selection-end-line="198" selection-end-column="9" />
+                <state relative-caret-position="364">
+                  <caret line="258" selection-start-line="258" selection-end-line="258" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -114,8 +124,8 @@
           <file leaf-file-name="Clipper.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/drawables/Clipper.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="221">
-                  <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="38" />
+                <state relative-caret-position="335">
+                  <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
                   <folding>
                     <element signature="e#99#100#0" expanded="true" />
                     <element signature="e#133#134#0" expanded="true" />
@@ -131,8 +141,8 @@
           <file leaf-file-name="ControlPanel.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/ui/ControlPanel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="366">
-                  <caret line="263" column="37" selection-start-line="263" selection-start-column="37" selection-end-line="263" selection-end-column="37" />
+                <state relative-caret-position="400">
+                  <caret line="176" column="50" selection-start-line="176" selection-start-column="50" selection-end-line="176" selection-end-column="50" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -155,9 +165,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.x</find>
-      <find>line</find>
-      <find>lineD</find>
       <find>dra</find>
       <find>fillM</find>
       <find>clipPoly</find>
@@ -185,6 +192,9 @@
       <find>drawables.add</find>
       <find>item</find>
       <find>BL</find>
+      <find>penis</find>
+      <find>is</find>
+      <find>PO</find>
     </findStrings>
     <replaceStrings>
       <replace>PgrfFrameClickPolygon</replace>
@@ -223,16 +233,16 @@
         <option value="$PROJECT_DIR$/src/drawables/xxx.java" />
         <option value="$PROJECT_DIR$/src/drawables/Point.java" />
         <option value="$PROJECT_DIR$/src/drawables/Line.java" />
-        <option value="$PROJECT_DIR$/src/drawables/Edge.java" />
         <option value="$PROJECT_DIR$/src/ui/ColorChooser.java" />
         <option value="$PROJECT_DIR$/src/utils/Item.java" />
         <option value="$PROJECT_DIR$/src/drawables/FillType.java" />
         <option value="$PROJECT_DIR$/src/drawables/DrawableType.java" />
         <option value="$PROJECT_DIR$/src/drawables/NPolygon.java" />
+        <option value="$PROJECT_DIR$/src/drawables/Edge.java" />
+        <option value="$PROJECT_DIR$/src/utils/Renderer.java" />
         <option value="$PROJECT_DIR$/src/drawables/Clipper.java" />
         <option value="$PROJECT_DIR$/src/ui/PgrfFrame.java" />
         <option value="$PROJECT_DIR$/src/ui/ControlPanel.java" />
-        <option value="$PROJECT_DIR$/src/utils/Renderer.java" />
       </list>
     </option>
   </component>
@@ -261,51 +271,7 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="pgrf" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pgrf" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pgrf" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pgrf" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pgrf" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pgrf" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="drawables" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pgrf" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pgrf" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="solids" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pgrf" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pgrf" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pgrf" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pgrf" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="POint&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_171/jre/lib/ext/jfxrt.jar!/javafx/geometry/Point2D.class" />
@@ -498,6 +464,9 @@
       <workItem from="1541779744915" duration="66116000" />
       <workItem from="1541884748914" duration="339000" />
       <workItem from="1541885335163" duration="504000" />
+      <workItem from="1541886547608" duration="1414000" />
+      <workItem from="1541926583991" duration="273000" />
+      <workItem from="1541927927777" duration="5478000" />
     </task>
     <task id="LOCAL-00001" summary="DDA - working">
       <created>1538991593300</created>
@@ -587,7 +556,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="228189000" />
+    <option name="totallyTimeSpent" value="235354000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -600,45 +569,45 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32897604" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32897604" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.11940298" side_tool="true" weight="0.57298476" />
       <window_info anchor="right" id="Maven Projects" order="3" weight="0.32995737" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49840087" visible="true" weight="0.3453159" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.93246186" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840087" weight="0.3453159" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32897604" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8714597" weight="0.14818764" />
       <window_info anchor="right" id="Database" order="3" weight="0.32995737" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
       <window_info id="Structure" order="1" sideWeight="0.1285403" side_tool="true" weight="0.14978679" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.880597" weight="0.32135075" />
-      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.32995737" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.32995737" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32897604" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32995737" />
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32897604" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32897604" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15031983" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -647,18 +616,19 @@
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.93246186" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Database" order="6" weight="0.32995737" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32995737" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.22657952" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info id="Capture Tool" order="5" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32897604" />
       <window_info anchor="right" id="Maven Projects" order="8" weight="0.32995737" />
       <window_info id="Favorites" order="6" side_tool="true" />
     </layout-to-restore>
@@ -687,13 +657,21 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/ui/PgrfFrame.java</url>
-          <line>102</line>
+          <url>file://$PROJECT_DIR$/src/utils/Renderer.java</url>
+          <line>218</line>
           <properties />
-          <option name="timeStamp" value="159" />
+          <option name="timeStamp" value="165" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/drawables/Edge.java</url>
+          <line>52</line>
+          <properties class="drawables.Edge" method="findX">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="164" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="160" />
+      <option name="time" value="166" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -983,25 +961,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/drawables/Edge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+        <state relative-caret-position="259">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+          <folding>
+            <element signature="e#315#316#0" expanded="true" />
+            <element signature="e#344#345#0" expanded="true" />
+            <element signature="e#1041#1042#0" expanded="true" />
+            <element signature="e#1072#1073#0" expanded="true" />
+            <element signature="e#1369#1370#0" expanded="true" />
+            <element signature="e#1394#1395#0" expanded="true" />
+            <element signature="e#1502#1503#0" expanded="true" />
+            <element signature="e#1527#1528#0" expanded="true" />
+            <element signature="e#1635#1636#0" expanded="true" />
+            <element signature="e#1660#1661#0" expanded="true" />
+            <element signature="e#1768#1769#0" expanded="true" />
+            <element signature="e#1793#1794#0" expanded="true" />
+            <element signature="e#1902#1903#0" expanded="true" />
+            <element signature="e#1926#1927#0" expanded="true" />
+            <element signature="e#2033#2034#0" expanded="true" />
+            <element signature="e#2057#2058#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/utils/Renderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3417">
-          <caret line="222" column="40" selection-start-line="222" selection-start-column="40" selection-end-line="222" selection-end-column="40" />
+        <state relative-caret-position="364">
+          <caret line="258" selection-start-line="258" selection-end-line="258" />
           <folding>
-            <element signature="e#7038#7039#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/drawables/Clipper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="38" />
+        <state relative-caret-position="335">
+          <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
           <folding>
             <element signature="e#99#100#0" expanded="true" />
             <element signature="e#133#134#0" expanded="true" />
@@ -1009,20 +1005,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/Renderer.java">
+    <entry file="file://$PROJECT_DIR$/src/ui/PgrfFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="198" column="9" selection-start-line="198" selection-start-column="9" selection-end-line="198" selection-end-column="9" />
+        <state relative-caret-position="1632">
+          <caret line="124" column="58" selection-start-line="124" selection-start-column="58" selection-end-line="124" selection-end-column="58" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#3807#4323#0" expanded="true" />
+            <element signature="e#4322#4323#0" expanded="true" />
+            <element signature="e#4395#4514#0" expanded="true" />
+            <element signature="e#4513#4514#0" expanded="true" />
+            <element signature="e#7000#7001#0" expanded="true" />
+            <element signature="e#7038#7039#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/ControlPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4319">
-          <caret line="270" column="44" selection-start-line="270" selection-start-column="44" selection-end-line="270" selection-end-column="44" />
+        <state relative-caret-position="398">
+          <caret line="126" column="17" selection-start-line="126" selection-start-column="17" selection-end-line="126" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
