@@ -16,16 +16,26 @@ public class Renderer {
     private BufferedImage img;
     private int color;
     private static final int[][] PATTERN = {
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 1, 0, 0, 0, 0, 1},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0},
+            {1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0},
+            {1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0},
+            {1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0},
+            {1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0},
+            {1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0},
+            {1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0},
+            {1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0},
+            {1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0},
+            {0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 
     public Renderer(BufferedImage img) {
@@ -53,9 +63,6 @@ public class Renderer {
         int dy = y1 - y2;
 
         if (Math.abs(dx) > Math.abs(dy)) {
-            // řídící osa x
-            // float k ... q
-            // drawPixel(x, y)
             if (x1 > x2) {
                 int p = x1;
                 x1 = x2;
@@ -154,19 +161,18 @@ public class Renderer {
 
     public void seedFill(int x, int y, int oldColor, int newColor) {
 
-        if (oldColor == img.getRGB(x, y)) {
-
-
+        if (oldColor == img.getRGB(x, y) && newColor != img.getRGB(x, y)) {
             drawPixel(x, y, newColor);
+            System.out.println(x + " " + y);
             if (x < img.getWidth() - 1 && x > 1 && y < img.getHeight() - 1 && y > 1) {
-                if (img.getRGB(x + 1, y) != newColor)
-                    seedFill(x + 1, y, oldColor, newColor);
-                if (img.getRGB(x - 1, y) != newColor)
-                    seedFill(x - 1, y, oldColor, newColor);
-                if (img.getRGB(x, y + 1) != newColor)
-                    seedFill(x, y + 1, oldColor, newColor);
-                if (img.getRGB(x, y - 1) != newColor)
-                    seedFill(x, y - 1, oldColor, newColor);
+                System.out.println("1");
+                seedFill(x + 1, y, oldColor, newColor);
+                System.out.println("2");
+                seedFill(x - 1, y, oldColor, newColor);
+                System.out.println("3");
+                seedFill(x, y + 1, oldColor, newColor);
+                System.out.println("4");
+                seedFill(x, y - 1, oldColor, newColor);
             }
         }
 
@@ -174,10 +180,10 @@ public class Renderer {
 
     public void seedFillPattern(int x, int y, int borderColor, int firstColor, int secondColor) {
 
-        if (borderColor != img.getRGB(x, y)) {
+        if (borderColor != img.getRGB(x, y) && img.getRGB(x, y) != firstColor && img.getRGB(x, y) != secondColor) {
 
-            int indexX = (Math.abs(x) % 10);
-            int indexY = (Math.abs(y) % 10);
+            int indexX = x % (PATTERN.length * 10) / 10;
+            int indexY = y % (PATTERN[0].length * 10) / 10;
 
             int fillValue = PATTERN[indexY][indexX];
 
@@ -187,14 +193,10 @@ public class Renderer {
                 drawPixel(x, y, secondColor);
             }
             if (x < img.getWidth() - 1 && x > 1 && y < img.getHeight() - 1 && y > 1) {
-                if (img.getRGB(x + 1, y) != borderColor && img.getRGB(x + 1, y) != firstColor && img.getRGB(x + 1, y) != secondColor)
-                    seedFillPattern(x + 1, y, borderColor, firstColor, secondColor);
-                if (img.getRGB(x - 1, y) != borderColor && img.getRGB(x - 1, y) != firstColor && img.getRGB(x - 1, y) != secondColor)
-                    seedFillPattern(x - 1, y, borderColor, firstColor, secondColor);
-                if (img.getRGB(x, y + 1) != borderColor && img.getRGB(x, y + 1) != firstColor && img.getRGB(x, y + 1) != secondColor)
-                    seedFillPattern(x, y + 1, borderColor, firstColor, secondColor);
-                if (img.getRGB(x, y - 1) != borderColor && img.getRGB(x, y - 1) != firstColor && img.getRGB(x, y - 1) != secondColor)
-                    seedFillPattern(x, y - 1, borderColor, firstColor, secondColor);
+                seedFillPattern(x + 1, y, borderColor, firstColor, secondColor);
+                seedFillPattern(x - 1, y, borderColor, firstColor, secondColor);
+                seedFillPattern(x, y + 1, borderColor, firstColor, secondColor);
+                seedFillPattern(x, y - 1, borderColor, firstColor, secondColor);
             }
         }
     }
@@ -250,7 +252,7 @@ public class Renderer {
                 for (int i = 0; i < intersections.size(); i++) {
                 }
                 for (int i = 0; i < intersections.size(); i += 2) {
-                    lineDDA(new Point(intersections.get(i) + 2, y), new Point(intersections.get(i + 1), y), fillColor);
+                    lineDDA(new Point(intersections.get(i) + 1, y), new Point(intersections.get(i + 1), y), fillColor);
                 }
             }
 

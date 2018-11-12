@@ -1,23 +1,15 @@
 package ui;
 
-import com.sun.deploy.util.StringUtils;
 import drawables.*;
 import drawables.Point;
 import utils.Item;
-import utils.Renderer;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.plaf.ColorChooserUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class ControlPanel extends JPanel {
 
@@ -81,8 +73,6 @@ public class ControlPanel extends JPanel {
 
         controlPanel.add(panelColors, BorderLayout.NORTH);
 
-
-
         /* ***center panel *** */
         centerPanel = new JPanel(new BorderLayout());
 
@@ -126,11 +116,12 @@ public class ControlPanel extends JPanel {
                 " způsobit nefunkčnost ořezu<br><br>" +
                 "Klik - přidání bodu<br>" +
                 "Drag - úprava posledního bodu<br>" +
-                "Enter - uložení polygonu</p>"+
+                "Enter - uložení polygonu</p>" +
                 "</html>");
         descriptionPanel.add(description, BorderLayout.CENTER);
 
         controlPanel.add(descriptionPanel, BorderLayout.SOUTH);
+
         /* *** listeners *** */
 
         itemSelect.addItemListener(new ItemListener() {
@@ -155,6 +146,8 @@ public class ControlPanel extends JPanel {
                 colorChooser.getBtnSubmit().addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseReleased(MouseEvent e) {
+                        if (nPolygon == null)
+                            return;
                         int color = colorChooser.getColor();
                         nPolygon.setColor(color);
                         btnBorder.setBackground(new Color(color));
@@ -170,6 +163,8 @@ public class ControlPanel extends JPanel {
                 colorChooser.getBtnSubmit().addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseReleased(MouseEvent e) {
+                        if (nPolygon == null)
+                            return;
                         int color = colorChooser.getColor();
                         nPolygon.setFillColor(color);
                         btnFill.setBackground(new Color(color));
@@ -288,6 +283,7 @@ public class ControlPanel extends JPanel {
         pgrfFrame.setFillMode(false);
     }
 
+    /* *** nastaveni bodů do textArea *** */
     private void initPoints(NPolygon nPolygon) {
         String s = "";
         for (int i = 0; i < nPolygon.getPoints().size(); i++) {
@@ -308,6 +304,7 @@ public class ControlPanel extends JPanel {
         return this;
     }
 
+    /* *** přidání do komboboxu *** */
     private void initDrawables() {
         itemSelect.removeAllItems();
         for (int i = 0; i < drawables.size(); i++) {

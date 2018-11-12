@@ -38,7 +38,6 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     private NPolygon clippedPol;
     private List<Drawable> drawables;
 
-    private String defaultString = "L- přímka, N- nepravidelný, P- pravidelný || vybral jsi: ";
     private boolean fillMode;
 
 
@@ -66,7 +65,6 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
         clippedPol = new NPolygon();
         seedColor = Color.BLUE.getRGB();
         drawables.add(polCutter);
-        //  drawables.add(clippedPol);
         img = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
         renderer = new Renderer(img);
 
@@ -100,7 +98,7 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
                     seedY = e.getY();
 
                     if (fillWithPattern) {
-                        renderer.seedFillPattern(seedX, seedY, Color.RED.getRGB(), Color.GREEN.getRGB(), Color.PINK.getRGB());
+                        renderer.seedFillPattern(seedX, seedY, Color.RED.getRGB(), new Color(26,198,255).getRGB(), new Color(254,254,254).getRGB());
                     } else {
                         renderer.seedFill(seedX, seedY, img.getRGB(seedX, seedY), seedColor);
                     }
@@ -140,10 +138,10 @@ public class PgrfFrame extends JFrame implements MouseMotionListener {
     public void draw() {
         if (!fillMode) {
             img.getGraphics().fillRect(0, 0, img.getWidth(), img.getHeight()); /// překreslení sceny bilou barvou
-            Clipper clipper = new Clipper(polCutter);
+            Cutter cutter = new Cutter(polCutter);
             for (int i = 1; i < drawables.size(); i++) {
                 if (((NPolygon) drawables.get(i)).getNumberOfPoints() > 2) {
-                    NPolygon clippedPol = new NPolygon(clipper.clipPoly((NPolygon) drawables.get(i)));
+                    NPolygon clippedPol = new NPolygon(cutter.clipPoly((NPolygon) drawables.get(i)));
                     if (clippedPol.getPoints().size() > 2)
                         renderer.scanLine(clippedPol.getPoints(), Color.BLACK.getRGB(), Color.BLACK.getRGB());
                 }
