@@ -23,4 +23,9 @@ public abstract class SolidData implements Solid {
     public List<Integer> getIndicies() {
         return indicies;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getName().substring(getClass().getName().indexOf(".")+1);
+    }
 }

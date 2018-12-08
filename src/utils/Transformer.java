@@ -2,18 +2,18 @@ package utils;
 
 import drawables.Point;
 import solids.Solid;
-import transforms.Mat4;
-import transforms.Point3D;
+import transforms.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Optional;
 
 public class Transformer {
 
     private BufferedImage img;
 
-    private Mat4 model;
-    private Mat4 view;
+    private Mat4 model = new Mat4Identity();
+    private Mat4 view = new Mat4Identity();
     private Mat4 projection;
 
     public Transformer(BufferedImage img) {
@@ -31,17 +31,46 @@ public class Transformer {
             Point3D p1 = solid.getVerticies().get(solid.getIndicies().get(i));
             Point3D p2 = solid.getVerticies().get(solid.getIndicies().get(i + 1));
 
-            transformEdge(matFinal, p1, p2);
+            transformEdge(matFinal, p1, p2, solid.getColorByEdge(i / 2));
         }
 
     }
 
-    private void transformEdge(Mat4 matFinal, Point3D p1, Point3D p2) {
+    private void transformEdge(Mat4 mat, Point3D p1, Point3D p2, int color) {
         //todo  1. vynásobit body maticí
+        p1 = p1.mul(mat);
+        p2 = p2.mul(mat);
+
         //      2. orez dle 'w' z bodů
+        if (p1.getW() <= 0 && p2.getW() <= 0) return; // není v zorném poli
+
         //      3. tvorba vektoru - dehomogenizace (Point3D.dehomog()) (*w)
-        //      4. přepočet souřadnic na šířku a výšku okna
-        //      5. drawLine() z rendereru
+        Optional<Vec3D> o1 = p1.dehomog(); //vydělení W
+        Optional<Vec3D> o2 = p2.dehomog(); //vydělení W
+
+        if (!o1.isPresent() || !o2.isPresent())
+            return;
+
+        Vec3D v1 = o1.get();
+        Vec3D v2 = o2.get();
+
+        //      4. přepočet souřadnic na šířku a výšku okna - původně -1,1 -> 0,1
+        v1 = v1.mul(new Vec3D(1, 1, 1))
+                .add(new Vec3D(1, 1, 0))
+                .mul(new Vec3D(
+                        0.5 * (img.getWidth() - 1), //0-799
+                        0.5 * (img.getHeight() - 1),
+                        1));
+
+        v2 = v2.mul(new Vec3D(1, 1, 1))
+                .add(new Vec3D(1, 1, 0))
+                .mul(new Vec3D(
+                        0.5 * (img.getWidth() - 1),
+                        0.5 * (img.getHeight() - 1),
+                        1));
+        //      5. drawLine() z rendereru,
+        lineDDA(new Point((int) v1.getX(), ((int) v1.getY())), new Point((int) v2.getX(), ((int) v2.getY())), color);
+
     }
 
     private void drawPixel(int x, int y, int color) {
@@ -89,5 +118,32 @@ public class Transformer {
 
         }
 
+    }
+
+    public Mat4 getModel() {
+        return model;
+    }
+
+    public Transformer setModel(Mat4 model) {
+        this.model = model;
+        return this;
+    }
+
+    public Mat4 getView() {
+        return view;
+    }
+
+    public Transformer setView(Mat4 view) {
+        this.view = view;
+        return this;
+    }
+
+    public Mat4 getProjection() {
+        return projection;
+    }
+
+    public Transformer setProjection(Mat4 projection) {
+        this.projection = projection;
+        return this;
     }
 }

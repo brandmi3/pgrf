@@ -2,6 +2,7 @@ package solids;
 
 import transforms.Point3D;
 
+import java.awt.*;
 import java.util.List;
 
 public interface Solid {
@@ -10,5 +11,8 @@ public interface Solid {
 
     List<Integer> getIndicies(); // list indexu, ktere spolu tvoří hranu
 
+    default int getColorByEdge(int index) {
+        return Color.BLACK.getRGB();
+    }
 
 }
