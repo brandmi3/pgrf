@@ -3,7 +3,6 @@ package ui;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.lang.management.BufferPoolMXBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -14,11 +13,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import drawables.Point;
-import solids.Axis;
-import solids.Cube;
-import solids.Pyramid;
-import solids.Solid;
+import solids.*;
 import transforms.*;
 import utils.Transformer;
 
@@ -32,6 +27,7 @@ public class PgrfWiredFrame extends JFrame {
     private Camera camera;
     private List<Solid> solids;
     private Solid axisSolid;
+    private Solid pruzina;
     private Solid chosen;
     private boolean chosen_all = true;
     private BufferedImage img;
@@ -66,7 +62,8 @@ public class PgrfWiredFrame extends JFrame {
                 "Ctrl - dolu <br>" +
                 "Space - nahoru <br>" +
                 "R - Reset Kamery <br>" +
-                "Drag Myší - rozhlížení"
+                "Drag Myší - rozhlížení <br>" +
+                "Kolečko Myší - zoom"
                 + "</p></html>");
 
         TitledBorder title;
@@ -76,6 +73,7 @@ public class PgrfWiredFrame extends JFrame {
 
         searchField.addItem("Všechny");
         for (int i = 0; i < solids.size(); i++) {
+            if(solids.get(i) instanceof Cube || solids.get(i) instanceof Pyramid)
             searchField.addItem(solids.get(i));
         }
 
@@ -290,8 +288,8 @@ public class PgrfWiredFrame extends JFrame {
 
         transformer = new Transformer(img);
         transformer.setProjection(new Mat4PerspRH(1, 1, -1, 100));
-        camera = new Camera(new Vec3D(9.8, 5.2, -8.9),
-                -2.69, 0.63, 1.0, true);
+        camera = new Camera(new Vec3D(9.54, 9.01, 8.26),
+                -2.47, -0.39, 1.0, true);
 
         //solids.add(new Cube(1));
 
@@ -310,7 +308,6 @@ public class PgrfWiredFrame extends JFrame {
                         .mul(new Mat4Transl(0, 2, 0))
                         .mul(new Mat4RotZ((double) i * 2d * Math.PI / (double) cubeCount));
                 solid.getVerticies().set(v, newPoint);
-
             }
             solids.add(solid);
         }
@@ -319,9 +316,10 @@ public class PgrfWiredFrame extends JFrame {
             Point3D point3D = axis.getVerticies().get(i);
             axis.getVerticies().set(i, point3D.mul(new Mat4Scale(4)));
         }
-
+        solids.add(new FergusonCubic());
 
         axisSolid = axis;
+        pruzina = new CurvedLine();
         gui();
 
         // listeners
@@ -354,7 +352,7 @@ public class PgrfWiredFrame extends JFrame {
             @Override
             public void mouseDragged(MouseEvent e) {
                 camera = camera.addAzimuth(-(Math.PI / 1000) * (beginX - e.getX()));
-                camera = camera.addZenith((Math.PI / 1000) * (beginY - e.getY()));
+                camera = camera.addZenith(-(Math.PI / 1000) * (beginY - e.getY()));
                 beginX = e.getX();
                 beginY = e.getY();
             }
@@ -377,11 +375,12 @@ public class PgrfWiredFrame extends JFrame {
                         break;
                     case KeyEvent.VK_D:
                         camera = camera.right(0.1);
+                        break;
                     case KeyEvent.VK_SPACE:
-                        camera = camera.up(-0.1);
+                        camera = camera.up(0.1);
                         break;
                     case KeyEvent.VK_CONTROL:
-                        camera = camera.down(-0.1);
+                        camera = camera.down(0.1);
                         break;
 
                     case KeyEvent.VK_C:
@@ -399,16 +398,12 @@ public class PgrfWiredFrame extends JFrame {
                         transformer.setModel(new Mat4Scale(2));
                         System.out.println("Pohled ortogonalni");
                         break;
-                    // TODO - moveY, rotateX, rotateY, scaleX, scaleY...
-
                     case KeyEvent.VK_R:
                         resetCamera();
                         break;
-
                     case KeyEvent.VK_2:
                         camera = camera.down(0.1);
                         break;
-
                 }
                 super.keyReleased(e);
             }
@@ -448,7 +443,7 @@ public class PgrfWiredFrame extends JFrame {
                     Point3D newPoint = point3D
                             .mul(new Mat4RotZ(-(double) i * 2d * Math.PI / (double) 5))
                             .mul(new Mat4Transl(0, -2, 0))
-                            .mul(new Mat4RotXYZ(vec3D.getX(), vec3D.getY(), vec3D.getY()))
+                            .mul(new Mat4RotXYZ(vec3D.getX(), vec3D.getY(), vec3D.getZ()))
                             .mul(new Mat4Transl(0, 2, 0))
                             .mul(new Mat4RotZ((double) i * 2d * Math.PI / (double) 5));
 
@@ -467,7 +462,6 @@ public class PgrfWiredFrame extends JFrame {
                 for (int v = 0; v < solid.getVerticies().size(); v++) {
                     Point3D point3D = solid.getVerticies().get(v);
 
-                    System.out.println();
                     Point3D newPoint = point3D
                             .mul(new Mat4Transl(vec3D));
 
@@ -483,8 +477,8 @@ public class PgrfWiredFrame extends JFrame {
         moveX = 0;
         moveY = 0;
         moveZ = 0;
-        camera = new Camera(new Vec3D(9.8, 5.2, -8.9),
-                -2.69, 0.63, 1.0, true);
+        camera = new Camera(new Vec3D(9.54, 9.01, 8.26),
+                -2.47, -0.39, 1.0, true);
     }
 
     private void changePositions() {
@@ -508,13 +502,18 @@ public class PgrfWiredFrame extends JFrame {
         // clear
         img.getGraphics().fillRect(0, 0, img.getWidth(), img.getHeight());
 
-        //transformer.setModel(); // todo úloha 3
+
         transformer.setView(camera.getViewMatrix());
+
 
         for (Solid solid : solids) {
             transformer.drawWireFrame(solid);
         }
         transformer.drawWireFrame(axisSolid);
+        for (Point3D point3D : axisSolid.getVerticies()) {
+            transformer.drawAxisName(point3D);
+        }
+        transformer.drawWireFrame(pruzina);
 
         panel.getGraphics().drawImage(img, 0, 0, null);
         panel.paintComponents(getGraphics());

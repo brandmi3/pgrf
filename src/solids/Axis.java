@@ -8,10 +8,10 @@ public class Axis extends SolidData {
 
 
     public Axis() {
-        verticies.add(new Point3D(0, 0, 0));           // 0.
+        verticies.add(new Point3D(0, 0, 0));    // 0.
         verticies.add(new Point3D(1, 0, 0));    // x
-        verticies.add(new Point3D(0, 1, 0));    //y
-        verticies.add(new Point3D(0, 0, 1));    //z
+        verticies.add(new Point3D(0, 1, 0));    // y
+        verticies.add(new Point3D(0, 0, 1));    // z
 
         indicies.add(0);
         indicies.add(1);

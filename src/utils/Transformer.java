@@ -1,6 +1,8 @@
 package utils;
 
 import drawables.Point;
+import solids.Axis;
+import solids.CubicData;
 import solids.Solid;
 import transforms.*;
 
@@ -26,51 +28,94 @@ public class Transformer {
         //vykreslení matice zobrazení
         Mat4 matFinal = model.mul(view).mul(projection);
 
+        if (solid instanceof CubicData) {
+            CubicData cubicData = ((CubicData) solid);
+            Point3D a, b;
+            for (Cubic cubic : cubicData.getCubics()) {
+                a = cubic.compute(0);
+                for (double d = 0.02; d < 1; d += 0.02) {
+                    b = cubic.compute(d);
+                    transformEdge(matFinal, a, b, solid.getColorByEdge(0));
+                    a = b;
+                }
+                b = cubic.compute(1);//hladké napojovnai
+                transformEdge(matFinal, a, b, solid.getColorByEdge(0));
+            }
+        }
         //prvni index = první bod ,druhý indeš = druhý bod usečky (podle indexu sousedu)
         for (int i = 0; i < solid.getIndicies().size(); i += 2) {
             Point3D p1 = solid.getVerticies().get(solid.getIndicies().get(i));
             Point3D p2 = solid.getVerticies().get(solid.getIndicies().get(i + 1));
 
-            transformEdge(matFinal, p1, p2, solid.getColorByEdge(i / 2));
+
+            if (solid instanceof Axis) {
+                Graphics2D g = img.createGraphics();
+                g.setPaint(Color.BLACK);
+                Point3D point3D = transformEdge(matFinal, p1, p2, solid.getColorByEdge(i / 2));
+                String name = "";
+
+                if (p2.getX() > 0) {
+                    name = "x";
+                } else if (p2.getY() > 0) {
+                    name = "y";
+                } else if (p2.getZ() > 0) {
+                    name = "z";
+                }
+                g.drawString(name, (int) point3D.getX(), (int) point3D.getY());
+            } else {
+                transformEdge(matFinal, p1, p2, solid.getColorByEdge(i / 2));
+            }
         }
 
     }
 
-    private void transformEdge(Mat4 mat, Point3D p1, Point3D p2, int color) {
+    public void drawAxisName(Point3D point3D) {
+
+    }
+
+    private Point3D transformEdge(Mat4 mat, Point3D p1, Point3D p2, int color) {
         //todo  1. vynásobit body maticí
         p1 = p1.mul(mat);
         p2 = p2.mul(mat);
 
         //      2. orez dle 'w' z bodů
-        if (p1.getW() <= 0 && p2.getW() <= 0) return; // není v zorném poli
+        if (p1.getW() <= 0 && p2.getW() <= 0) return null; // není v zorném poli
 
         //      3. tvorba vektoru - dehomogenizace (Point3D.dehomog()) (*w)
         Optional<Vec3D> o1 = p1.dehomog(); //vydělení W
         Optional<Vec3D> o2 = p2.dehomog(); //vydělení W
 
         if (!o1.isPresent() || !o2.isPresent())
-            return;
+            return null;
 
         Vec3D v1 = o1.get();
         Vec3D v2 = o2.get();
 
         //      4. přepočet souřadnic na šířku a výšku okna - původně -1,1 -> 0,1
-        v1 = v1.mul(new Vec3D(1, 1, 1))
+        v1 = v1.mul(new Vec3D(1, -1, 1))
                 .add(new Vec3D(1, 1, 0))
                 .mul(new Vec3D(
                         0.5 * (img.getWidth() - 1), //0-799
                         0.5 * (img.getHeight() - 1),
                         1));
 
-        v2 = v2.mul(new Vec3D(1, 1, 1))
+        v2 = v2.mul(new Vec3D(1, -1, 1))
                 .add(new Vec3D(1, 1, 0))
                 .mul(new Vec3D(
                         0.5 * (img.getWidth() - 1),
                         0.5 * (img.getHeight() - 1),
                         1));
         //      5. drawLine() z rendereru,
-        lineDDA(new Point((int) v1.getX(), ((int) v1.getY())), new Point((int) v2.getX(), ((int) v2.getY())), color);
+        int v1x = (int) v1.getX();
+        int v1y = (int) v1.getY();
+        int v2x = (int) v2.getX();
+        int v2y = (int) v2.getY();
 
+        /** trochu ošklivé řešení buggovaní čar */
+        if (v1x > -100 && v1x < img.getWidth() + 100 && v2x > -100 && v2x < img.getWidth() + 100 && v1y > -100 && v1y < img.getHeight() + 100 && v2y > -100 && v2y < img.getHeight() + 100)
+            lineDDA(new Point((int) v1x, ((int) v1y)), new Point((int) v2x, ((int) v2y)), color);
+
+        return new Point3D(v2x, v2y, 0);
     }
 
     private void drawPixel(int x, int y, int color) {
